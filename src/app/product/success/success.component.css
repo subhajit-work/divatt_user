@@ -1,0 +1,149 @@
+.img img
+{
+    width: 60px;
+    margin-bottom: 25px;
+}
+.thanks-txt
+{
+    font-family: 'lato-regular';
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-top: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+.heading
+{
+    font-family: 'lato-regular';
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 22px;
+    color: #000;
+}
+.heading2
+{
+    font-family: 'lato-regular';
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    margin-top: 36px;
+    width: 100%;
+    border-bottom: 1.6px solid;
+    padding-bottom: 18px;
+    color: #000;
+}
+.order-table
+{
+    width:100%; 
+    height:auto; 
+    background-color:#fff; 
+    margin-top:0px;  
+    padding:20px; 
+    border: 1.5px solid #656262; 
+    border-collapse: collapse;
+    min-width: 670px;
+}
+.order-table tr
+{
+    color: #494b4d;
+    font-weight: bold; 
+    padding: 5px;
+    font-family: 'lato-regular';
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+.order-table td
+{
+    text-align: center;
+    padding: 10px;
+    padding-top: 2px;
+    /* border-left: 1.6px solid; */
+    border: 1.6px solid #bcbcbc;
+    color: #1f1f1f;
+}
+.order-table td p
+{
+    line-height: 21px;
+    color: #595959;
+    margin-bottom: 3px;
+}
+.order-table td p.font-12
+{
+    font-weight: 600;
+    color: #595959  !important;
+    font-size: 12px !important;
+}
+.order-table td table,
+.order-table td table td
+{
+    border: none !important;
+    color: #595959;
+}
+.order-table td.qty
+{
+    min-width: 120px;
+}
+/* .order-table  */
+/* singel-row */
+.singel-row{
+    min-width: 670px;
+}
+.singel-row td.left
+{
+    width: 50%;
+    border-left: 1.6px solid #bcbcbc;
+    border-bottom: 1.6px solid #bcbcbc;
+    padding: 10px;
+}
+.singel-row td.right
+{
+
+    width: 50%;
+    text-align: right;
+    padding: 16px;
+    border-right: 1.6px solid #bcbcbc;
+    border-bottom: 1.6px solid #bcbcbc;
+    font-weight: 600;
+    color: #000;
+}
+/* singel-row */
+/* order-detail */
+.order-detail li
+{
+    display: block;
+    font-size: 16px;
+    line-height: 22px;
+    /* color: #1f1f1f; */
+    color: #595959;
+    font-family: 'lato-regular';
+}
+.item-img{
+    width:80%;
+    margin: auto;
+    height: 121px;
+    object-fit: cover;
+}
+/* order-detail */
+.error_box .error_icon
+{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.error_box .error_icon mat-icon 
+{
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+}
+.error_box .message
+{
+    font-size: 20px;
+    font-weight: bold;
+}

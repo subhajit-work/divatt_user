@@ -1,0 +1,243 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="page-title">
+          <h2>Designer</h2>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <nav aria-label="breadcrumb" class="theme-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+            <li class="breadcrumb-item">Designer List</li>
+            <li class="breadcrumb-item active">Designer</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb End -->
+<section class="designer">
+  <div class="collection-wrapper">
+    <div class="container" style="background-color: rgb(246 246 246)">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="profile_card p-3">
+            <div class="row">
+              <div class="col-md-2"> 
+                <div class="imgbox">
+                  <img class="rounded mt-5" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic!= null ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'"/>
+                  <p class="follow_btn text-center" *ngIf="get_user_dtls">
+                    <a class="btn btn-transparent" *ngIf="!designer?.isFollowing" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)"> <i class="ti-plus"></i> Follow</a>
+                    <a class="btn btn-solid" *ngIf="designer?.isFollowing" (click)="openfollowModal('unfollow','',designer?.designerProfileEntity?.designerId)"> Following</a>
+                  </p>
+                  <p class="follow_btn text-center" *ngIf="!get_user_dtls">Login ,to follow designer</p>
+                </div>
+              </div>
+              <div class="col-md-10 p-3 py-5">
+                <div class="descption">
+                  <div class="name d-flex align-items-center justify-content-between mb-2"> 
+                    <div class="d-flex">
+                      <span class="designer">{{designer?.designerProfileEntity?.designerName}}</span> 
+                      <div class="rating text-center ml-4">
+                        <div class="scale_rating m-auto">
+                          <span>3.7</span>
+                          <img src="assets/images/rating/scale.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                     <!-- <a [routerLink]="['/designer/', productDetail.designerId]" class="btn btn-solid float-right">View Profile</a> -->
+                  </div>
+                  <p class="followers"> <span class="follower"><b>Follower :</b> {{designer?.follwerCount}}</span> <span class="product"><b>Products : </b> {{designer?.productCount}}</span></p>
+                  <p class="info_text font-family lead" >
+                    {{designer?.designerProfileEntity?.socialProfile?.description}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="d-flex main">
+                <div class="imgbox">
+                  <a [routerLink]="['/designer/', designer.designerProfileEntity.designerId]">
+                    <img class="rounded" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic!= null ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'"/>
+                  </a>
+                </div>
+                <div class="descption">
+                  <div class="designername">
+                    <div class="name d-flex align-items-center justify-content-between"> 
+                      <div >
+                        <div class="d-flex mb-2">
+                          <a [routerLink]="['/designer/', designer.designerProfileEntity.designerId]">
+                            <span class="text-uppercase text-dark">{{designer?.designerProfileEntity?.designerName}}</span> 
+                          </a>
+                          <div class="rating text-center ml-2">
+                            <div class="scale_rating ml-4">
+                              <span>3.7</span>
+                              <img src="assets/images/rating/scale.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <p class="followers"> <span class="follower"><b>Follower :</b> {{designer?.follwerCount}}</span> <span class="product"><b>Products : </b> {{designer?.productCount}}</span></p>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex main">
+                <div class="btns">
+                  <p class="follow_btn text-center" *ngIf="get_user_dtls">
+                    <a class="btn btn-transparent" *ngIf="!isFollowing" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)"> <i class="ti-plus"></i> Follow</a>
+                    <a class="btn btn-solid" *ngIf="isFollowing" (click)="openfollowModal('unfollow','',designer?.designerProfileEntity?.designerId)"> Following</a>
+                  </p>
+                  <p class="follow_btn text-center" *ngIf="!get_user_dtls">Login ,to follow designer</p>
+                </div>
+                <div class="descption">
+                  <p class="info_text font-family lead" >
+                    {{designer?.designerProfileEntity?.socialProfile?.description}}
+                  </p>
+                </div>
+              </div>
+            </div> -->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- <div class="title1  section-t-space mt-5" *ngIf="!noproducts">
+      <h2 class="title-inner1">Latest Product</h2>
+    </div> -->
+    <div class="container-fluid fixed-width mt-5 pt-5">
+      <div class="row mb-5">
+        <div class="col-md-12">
+          <div class="collection_title d-flex align-items-center justify-content-between">
+            <div class=" w-fit">
+              <!-- <h3 class="m-0 text-black">{{collection_title + ' collections'| uppercase}}</h3> -->
+              <h3 class="m-0 text-black">Collection</h3>
+            </div>
+            <div class="float-right">
+              <img class="img-fluid icon-width icon-height mx-3 curser-pointer" id="menu-toggle" (click)="visiblefilter = true"
+                    src="https://cdn-icons-png.flaticon.com/512/639/639178.png"
+                    style="width:20px;height:25px;margin: 4px; padding: 1px;" width="20px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p-sidebar [(visible)]="visiblefilter" position="right" [modal]="false" [baseZIndex]="10000">
+  
+        <!-- Sidebar -->
+        <app-filter (productfilter)="setFilter($event)"></app-filter>
+
+        <!-- /#sidebar-wrapper -->
+        <div class="buttons filtter">
+          <a class="link curser-pointer">view all result</a>
+          <a class="link curser-pointer">clear</a>
+        </div>
+      </p-sidebar>
+    </div>
+    <!-- <div class="container-fluid mb-4" *ngIf="!noproducts">
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" *ngFor="let product of allproducts">
+          <div class="product-box">
+            <app-product [product]="product"></app-product>
+          </div>
+          
+          
+        </div>
+      </div>
+      <div class="row justify-content-center mt-4" *ngIf="!noproducts">
+        <div>
+          <ul class="pagination">
+               <li (click)="setPage(wishlistItems.currentPage - 1)" [ngClass]="{disabled:wishlistItems?.currentPage === 0}" class="circle-border" matTooltip="Previous" matTooltipPosition="above">
+                  <a>
+                    Previous
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i> Previous
+                  </a>
+              </li>
+               <li class="pagenumber active">
+                  <a href="">1</a>
+              </li>
+              <li class="pagenumber">
+                <a href="">2</a>
+            </li>
+              <li (click)="setPage(wishlistItems.currentPage + 1)" [ngClass]="{disabled:wishlistItems?.currentPage === wishlistItems?.totalPage}" class="circle-border" matTooltip="Next" matTooltipPosition="above">
+                  <a>
+                    Next
+                    Next <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                  </a>
+              </li>
+          </ul>
+        </div>
+       </div>
+    </div> -->
+    <div class="container-fluid fixed-width collection-page mb-5">
+      <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6" *ngFor="let product of allproducts | paginate: config">
+          <div class="product-box">
+            <app-product [product]="product"></app-product>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-5" style="display: flex;justify-content: center;">
+          <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+        </div>
+       
+      </div>
+    </div>
+    <div class="title1  section-t-space mb-5" *ngIf="noproducts">
+      <img src="assets/images/no-product-found.png" class="no_product_designer  mb-5" alt="">
+      <!-- <h2 class="title-inner1">No Product Found.....</h2> -->
+    </div>  
+  </div>
+</section>
+<!-- follow  modal -->
+<ng-template #followmodal let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">
+        Follow the Designer
+      </h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+      </button>
+  </div>  
+  <div class="modal-body">
+      <!-- <img src="../assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyload" /> -->
+      <form class="theme-form" #followDesigner="ngForm" (ngSubmit)="onSubmitFollowform(followDesigner)" (keyup.enter)="onSubmitFollowform(updateUser)" novalidate>
+      <!-- Hidden data -->
+      <input type="hidden" name="designerId" [(ngModel)]="model.designerId">
+      <input type="hidden" name="userId" [(ngModel)]="model.userId">
+      <input type="hidden" name="username" [(ngModel)]="model.username">
+      <input type="hidden" name="isFollowing" [(ngModel)]="model.isFollowing">
+      <div class="form-group mb-0">
+          <mat-form-field appearance="fill">
+          <mat-label>Comment</mat-label>
+          <input matInput type="text" name="comment" [(ngModel)]="model.comment" required>
+          </mat-form-field>
+      </div>
+      <!-- <div class="form-group">
+        <P>Give Rating</P>
+        <ul class="list-inline rating-list" 
+          *ngFor="let star of stars" style="display: inline-block" >
+            <li (click)="countStar(star)"
+                [ngClass]="{'selected': (star <= selectedValue)}">
+              <i class="fa fa-star"></i>
+            </li> 
+      </ul>
+      </div> -->
+      <!-- <input type="hidden" name="raiting" [(ngModel)]="model.raiting" required> -->
+      <!-- <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p> -->
+      <button class="btn btn-solid" type="submit" [ngClass]="{'loadingEnable':isLoading}">
+          <div class="spinner-border text-muted"></div>
+          Follow 
+      </button>
+      </form>
+  </div>
+</ng-template>
+<!--follow modal /-->
+<app-footer></app-footer>

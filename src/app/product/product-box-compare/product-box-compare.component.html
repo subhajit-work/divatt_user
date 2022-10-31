@@ -1,0 +1,221 @@
+<section class="compare_product">
+  <div class="container compare-section">
+    <p class="title text-center mt-3 mb-5">Product Compare</p>
+    <div class="card mb-5 border-0">
+      <div class="row">
+        <div class="col-xs-4 compare-heading">
+          <div class="row">
+            <div
+              class="col-lg-12 border-bottom"
+              style="display: table; width: 100%"
+            >
+              <div class="backto-prev">
+                <p class="head_title">Product Overview</p>
+              </div>
+            </div>
+            
+            <div class="col-lg-12 border-bottom">
+              <div class="compare_list_text">
+                <span>Sizes</span>
+              </div>
+            </div>
+            <div class="col-lg-12 border-bottom">
+              <div class="compare_list_text">
+                <span>Colors</span>
+              </div>
+            </div>
+            <div class="col-lg-12 border-bottom">
+              <div class="compare_list_text">
+                <span>Price</span>
+              </div>
+            </div>
+            <div class="col-lg-12 border-bottom">
+              <div class="compare_list_text">
+                <span>Rating</span>
+              </div>
+            </div>
+            <div class="col-lg-12 border-bottom">
+              <div class="compare_list_text">
+                <span>Discount</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-8 compare-results">
+          
+          <div class="single-column" *ngFor="let item of allcompareproduct">
+            <div class="row">
+              <div class="col-lg-12 border-bottom backto-prev">
+                <div class="image">
+                  <img
+                    src="{{item?.pictures[0]}}"
+                    class=""
+                  />
+                </div>
+                
+                <h6 class="product_name">{{item?.name}}</h6>
+                
+                <p><a [routerLink]="['../product-detail/product', item.id]" class="btn btn-solid">Buy Now</a></p>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>
+                    <div class="row m-0 p-1 justify-content-center">
+                      <h6 class="w-fit" *ngFor="let sizeITEM of item?.size">
+                        {{sizeITEM}},&nbsp;
+                      </h6>
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>
+                    <div class="row m-0 p-1 justify-content-center">
+                      <h6 class="w-fit" *ngFor="let color of item?.colors">
+                        {{color}},&nbsp;
+                      </h6>
+                    </div>
+                    
+                    </span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span class="price">₹	{{item?.price}}</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>
+                     <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                </span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>{{item?.discount}}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="single-column">
+            <div class="row">
+              <div class="col-lg-12 border-bottom backto-prev">
+                <div class="image no-image">
+                  <img
+                    src="https://demo.rnjcs.in/ci/xcelero/upload/single_image/1050647767803028500.jpg"
+                    class=""
+                  />
+                </div>
+                
+                <h6 class="">Blockchain</h6>
+                
+                <p><a href="#" class="btn btn-solid">Buy Now</a></p>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>Zubi.io</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>B.SC</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span class="price">₹ 14000</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>
+                      <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>We provide 90% placement.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="single-column">
+            <div class="row">
+              <div class="col-lg-12 border-bottom backto-prev">
+                <div class="image no-image">
+                  <img
+                    src="https://demo.rnjcs.in/ci/xcelero/upload/single_image/1050647767803028500.jpg"
+                    class=""
+                  />
+                </div>
+                
+                <h6 class="">Blockchain</h6>
+                
+                <p><a href="#" class="btn btn-solid">Buy Now</a></p>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>Eleven01</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>B.SC</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span class="price">₹ 13000</span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-12 border-bottom">
+                <div class="compare_list_text">
+                  <span>We provide 60% placement.</span>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

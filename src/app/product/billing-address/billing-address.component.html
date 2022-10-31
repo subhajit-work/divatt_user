@@ -1,0 +1,359 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Address</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Address</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+<section class="section-b-space address_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11 m-auto">
+                <div class="checkout-page">
+                    <div class="checkout-form">
+                        
+                            <div class="row mb-5">
+                                <div class="col-lg-6" *ngIf="formOpen">
+                                    <form #addressForm="ngForm" (ngSubmit)="onSubmitAddressForm(addressForm)"   novalidate>
+                                        <div class="border p-4 rounded">
+                                            <div class="checkout-title">
+                                                <!-- <h3 class="text-center font-weight-normal">Billing Details</h3> -->
+                                            </div>
+                                            <div class="row check-out p-4 mb-0">
+                                                <div class="col-md-12">
+                                                    <p class="text-dark font-weight-bold mb-2 border-bottom pb-1 text-uppercase w-fit">Contact Details</p>
+                                                    <!-- <input type="hidden"  name="userId" [(ngModel)]="model.userId"> -->
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                <mat-label>Full Name<sup>*</sup></mat-label>
+                                                                <input type="text" matInput name="fullName" [(ngModel)]="model.fullName">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                <mat-label>Address 1<sup>*</sup></mat-label>
+                                                                <textarea type="text" matInput name="address1" [(ngModel)]="model.address1"></textarea>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                <mat-label>Address 2</mat-label>
+                                                                <textarea type="text" matInput name="address2" [(ngModel)]="model.address2"></textarea>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                <mat-label>Phone<sup>*</sup></mat-label>
+                                                                <input matInput   type="number"  minlength="10" maxlength="10" pattern="^((\\+91-?)|0)?[0-9]{10}$"  onKeyPress="if(this.value.length==10) {return false;}" name="mobile" [(ngModel)]="model.mobile">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                <mat-label>Email<sup>*</sup></mat-label>
+                                                                <input type="email" matInput name="email"  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" [(ngModel)]="model.email">
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-12 col-sm-12 col-xs-12 mt-2">
+                                                            <p class="text-dark font-weight-bold mb-3 border-bottom pb-1 text-uppercase w-fit">Save address As</p>
+                                                            <!-- <div class="radio_container">
+                                                                <input type="radio" name="radio" id="home" [checked]="model.addressType == 'Home'"  (change)="addressType('Home')">
+                                                                <label for="home" class="mr-2">Home</label>
+                                                                <input type="radio" name="radio" id="work"  [ngClass]="{'checked':model.addressType == 'Work'}" (change)="addressType('Work')">
+                                                                <label for="work">Work</label>
+                                                            </div> -->
+                                                            <mat-radio-group name="addressType" [(ngModel)]="model.addressType" required>
+                                                                <mat-radio-button value="Home">Home</mat-radio-button>&nbsp;&nbsp;
+                                                                <mat-radio-button value="Work">Work</mat-radio-button>
+                                                            </mat-radio-group>
+                                                        </div>
+                                                    <input type="hidden" name="addressType" [(ngModel)]="model.addressType">
+                                                    </div>
+                                                    <p class="text-dark font-weight-bold mb-2 border-bottom pb-1 text-uppercase w-fit">Address</p>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Select Country <sup>*</sup></mat-label>
+                                                                    <mat-select  name="country"  [(ngModel)]="model.country">
+                                                                    <mat-option *ngFor="let Country of Countrys" [value]="Country.viewValue">
+                                                                        {{Country.viewValue}}
+                                                                    </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <!-- <div class="form-item ngsel">
+                                                                <ng-select [items]="Countrys" 
+                                                                        bindLabel="viewValue" 
+                                                                        name="country"
+                                                                        placeholder="Select Country"
+                                                                        bindValue="viewValue" 
+                                                                        [(ngModel)]="productdtl.country"
+                                                                        (change)="ngsel(productdtl.country)"
+                                                                        required>
+                                                                </ng-select>
+                                                                <label>Select Country <sup>*</sup></label>
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Select States <sup>*</sup></mat-label>
+                                                                    <mat-select  name="state"  [(ngModel)]="model.state" [disabled]="!model.country">
+                                                                    <mat-option *ngFor="let state of states" [value]="state.name">
+                                                                        {{state.name}}
+                                                                    </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                    <mat-label>Town/City <sup>*</sup></mat-label>
+                                                                    <input matInput type="text" name="city" [(ngModel)]="model.city">
+                                                                </mat-form-field>  
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                    <mat-label>Landmark <sup>*</sup></mat-label>
+                                                                    <input matInput type="text" name="landmark" [(ngModel)]="model.landmark">
+                                                                </mat-form-field>  
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group">
+                                                                <mat-form-field class="example-full-width" appearance="outline">
+                                                                    <mat-label>Postal Code <sup>*</sup></mat-label>
+                                                                    <input matInput type="text" name="postalCode" [(ngModel)]="model.postalCode">
+                                                                </mat-form-field>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <p class="">
+                                                    <mat-checkbox
+                                                        class="example-margin" name="primary" [(ngModel)]="model.primary">
+                                                        Make this my default address
+                                                    </mat-checkbox>
+                                                </p>
+                                            </div>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <p class="">
+                                                    <mat-checkbox
+                                                        class="example-margin" name="ask" [(ngModel)]="model.ask">
+                                                        Do you want to save this address.
+                                                    </mat-checkbox>
+                                                </p>
+                                            </div>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <button class="btn btn-solid" [ngClass]="{'loadingEnable':isLoading}" type="submit" [disabled]="!addressForm.valid || isLoading" >
+                                                    <div class="spinner-border text-muted"></div>
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                 </div>
+                                 <!-- [ngClass]="{'address-box': addresslist.length > 8}" -->
+                                <div class="col-lg-6" [ngClass]="{'col-lg-12': !formOpen}">
+                                    <div class="row">
+                                        <div class="col-md-12 text-right mb-4">
+                                            <a (click)="OpenForm()" class="btn btn-solid">
+                                                {{formOpen ? 'Cancel' : 'Add Address'}}
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" *ngIf="!noadressFound">
+                                            <p class="text-dark font-weight-bold mb-3 pb-1 text-uppercase main-heading">Select delivery Address</p>
+                                        </div>
+                                        <!-- unsaveAddress address start -->
+                                        <div class="col-md-12" *ngIf="nounsaveAddress">
+                                            <p class="text-dark font-weight-bold mb-2 border-bottom pb-1 text-uppercase w-fit">Unsave Address</p>
+                                        </div>
+                                        <div class="col-md-12" *ngIf="nounsaveAddress">
+                                            <label  class="address_label" *ngFor="let address of unsaveAddress">
+                                                <div class="addresses p-1 d-flex" >
+                                                    <div class="checkbtn">
+                                                        <mat-radio-button  [id]="address?.id"  name="alladress" (change)="addressSelected(address)"></mat-radio-button>
+                                                    </div>
+                                                    
+                                                    <div class="dtl w-100">
+                                                        <div class="user_name mb-2 d-flex align-items-center">
+                                                            <span>{{address.fullName}}</span><span class="ml-2 address_type">{{address.addressType}}</span>
+                                                        </div>
+                                                        <div class="address text-muted"> 
+                                                            {{address.address1}} <br/>
+                                                            {{address.address2}},{{address.city}},{{address.state}},{{address.country}},{{address.postalCode}}
+                                                            <!-- Joypur Amta HowrahJoypurJoypur Amta HowrahJoypurJoypur Amta HowrahJoypur Amta HowrahJoypur Amta Howrah west bengal India 711401 -->
+                                                        </div>
+                                                        <div class="mobile mt-2 font-12">
+                                                            <span class="text-muted">Mobile : </span>{{address.mobile}} <br>
+                                                            <span class="text-muted">Landmark : </span>{{address.landmark}}
+                                                        </div>
+                                                        <p class="mt-1" *ngIf="buttonsshow">* Pay on delivery availabel</p>
+                                                    </div>
+                                                    <i class="ti ti-more-alt" [matMenuTriggerFor]="menu"></i>
+                                                    <mat-menu #menu="matMenu">
+                                                        <button mat-menu-item (click)="editAddress(address,'unsaveData')">Edit</button>
+                                                        <button mat-menu-item (click)="toDeleteAddress(address,'unsavedata')">Delete</button>
+                                                    </mat-menu>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <!-- unsaveAddress address end -->
+                                        <!-- Default Address start -->
+                                        <div class="col-md-12 mt-3" *ngIf="addresslist.length">
+                                            <p class="text-dark font-weight-bold mb-2 border-bottom pb-1 text-uppercase w-fit">Default Address</p>
+                                        </div>
+                                        <div class="col-md-12" *ngIf="addresslist.length">
+                                            <label  class="address_label" *ngFor="let address of addresslist" [ngClass]="{'d-none': address?.primary == false}">
+                                                <div class="addresses p-1 d-flex" >
+                                                    <div class="checkbtn">
+                                                        <mat-radio-button  [id]="address?.id"  name="alladress" (change)="addressSelected(address)"></mat-radio-button>
+                                                    </div>
+                                                    
+                                                    <div class="dtl w-100">
+                                                        <div class="user_name mb-2 d-flex align-items-center">
+                                                            <span>{{address.fullName}}</span><span class="ml-2 address_type">{{address.addressType}}</span>
+                                                        </div>
+                                                        <div class="address text-muted"> 
+                                                            {{address.address1}} <br/>
+                                                            {{address.address2}},{{address.city}},{{address.state}},{{address.country}},{{address.postalCode}}
+                                                            <!-- Joypur Amta HowrahJoypurJoypur Amta HowrahJoypurJoypur Amta HowrahJoypur Amta HowrahJoypur Amta Howrah west bengal India 711401 -->
+                                                        </div>
+                                                        <div class="mobile mt-2 font-12">
+                                                            <span class="text-muted">Mobile : </span>{{address.mobile}} <br>
+                                                            <span class="text-muted">Landmark : </span>{{address.landmark}}
+                                                        </div>
+                                                        <p class="mt-1" *ngIf="buttonsshow">* Pay on delivery availabel</p>
+                                                    </div>
+                                                    <i class="ti ti-more-alt" [matMenuTriggerFor]="menu"></i>
+                                                    <mat-menu #menu="matMenu">
+                                                        <button mat-menu-item (click)="editAddress(address,'')">Edit</button>
+                                                        <button mat-menu-item (click)="toDeleteAddress(address,'savedata')">Delete</button>
+                                                    </mat-menu>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <!-- Default Address end -->
+                                        <!-- Others Address start -->
+                                        <div class="col-md-12 mt-3" *ngIf="addresslist.length">
+                                            <p class="text-dark font-weight-bold mb-2 border-bottom pb-1 text-uppercase w-fit">Others Address</p>
+                                        </div>
+                                        <div class="col-md-12" *ngIf="addresslist.length">
+                                            <label  class="address_label mb-2" *ngFor="let address of addresslist" [ngClass]="{'d-none': address?.primary == true}">
+                                                <div class="addresses p-1 d-flex" >
+                                                    <div class="checkbtn">
+                                                        <mat-radio-button  [id]="address?.id"  name="alladress" (change)="addressSelected(address)"></mat-radio-button>
+                                                    </div>
+                                                    
+                                                    <div class="dtl w-100">
+                                                        <div class="user_name mb-2 d-flex align-items-center">
+                                                            <span>{{address.fullName}}</span><span class="ml-2 address_type">{{address.addressType}}</span>
+                                                        </div>
+                                                        <div class="address text-muted"> 
+                                                            {{address.address1}} <br/>
+                                                            {{address.address2}},{{address.city}},{{address.state}},{{address.country}},{{address.postalCode}}
+                                                            <!-- Joypur Amta HowrahJoypurJoypur Amta HowrahJoypurJoypur Amta HowrahJoypur Amta HowrahJoypur Amta Howrah west bengal India 711401 -->
+                                                        </div>
+                                                        <div class="mobile mt-2 font-12">
+                                                            <span class="text-muted">Mobile : </span>{{address.mobile}} <br>
+                                                            <span class="text-muted">Landmark : </span>{{address.landmark}}
+                                                        </div>
+                                                        <p class="mt-1" *ngIf="buttonsshow">* Pay on delivery availabel</p>
+                                                    </div>
+                                                    <i class="ti ti-more-alt" [matMenuTriggerFor]="menu"></i>
+                                                    <mat-menu #menu="matMenu">
+                                                        <button mat-menu-item (click)="editAddress(address,'')">Edit</button>
+                                                        <button mat-menu-item (click)="toDeleteAddress(address,'savedata')">Delete</button>
+                                                    </mat-menu>
+                                                </div>
+                                            </label>
+                                        </div>
+                                          <!-- Others Address end -->
+                                    </div>
+                                    <div class="row" *ngIf="noadressFound" [ngClass]="{'d-none': loader}">
+                                        <div class=" col-12 pb-5 text-center text-muted font-weight-bold">
+                                            No Address Found!! Please add address to continue shopping.
+                                        </div>
+                                    </div>
+                                    <div class="container text-center" *ngIf="loader">
+                                        <mat-spinner class="loader m-auto"></mat-spinner>
+                                        <p class="mt-1 mb-0"><small><b>Loading..</b></small></p>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        
+                    </div>
+                </div>
+                <div class="position-fixed cart-btn-section" *ngIf="total_price">
+                    <div class="total_price d-flex align-items-center" *ngIf="addressViewType == 'shop'">
+                      <div class="price d-grid"> 
+                        <div class="w-100 font-10 mb-1">
+                          <!-- <span>Total:</span><span class="float-right"> {{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span> -->
+                          <span>Total:</span><span class="float-right">₹ {{ total_price}}</span>
+                        </div>
+                        
+                        <!-- <p class="font-10 mb-2 text-right">GST include</p>
+                        <p class="font-10 m-0 text-right">* EXCL SHIPPING COST</p> -->
+                      </div>
+                      
+                      <div class="btnBox">
+                        <a [ngClass]="{'disabled': !selectAddress}" [routerLink]="['/checkout/',selectAddress]" class="btn btn-solid">Proceed</a>
+                      </div>
+                    </div>
+                  </div>
+                <!-- <div class="position-fixed cart-btn-section">
+                    <div class="total_price d-flex align-items-center">
+                      <div class="price d-grid"> 
+                        <div class="w-100 font-10">
+                          <span>Total:</span><span class="float-right"> {{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span>
+                          <span>Total:</span><span class="float-right">{{total_price}} </span> 
+                        </div>
+                        
+                        <p class="font-10 mb-1 text-center">GST include</p>
+                        <p class="font-10 m-0">* EXCL SHIPPING COST</p>
+                      </div>
+                      
+                      <div class="btnBox">
+                        <a [routerLink]="['../checkout/', selectAddress]"  class="btn btn-solid">Proceed</a>
+                      </div>
+                    </div>
+                  </div> -->
+            </div>
+        </div>
+       
+    </div>
+</section>

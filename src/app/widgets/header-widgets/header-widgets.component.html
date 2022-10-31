@@ -1,0 +1,468 @@
+<div class="icon-nav desktop">
+    <ul>
+      <li class="onhover-div mobile-search search-widgets" id="search-widgets">
+        <div>
+          <a [routerLink]="'/search'">
+            <img src="assets/images/icon/feather/search.svg"  class="img-fluid icon-width icon-height" alt="" title="Search">
+            <i class="ti-search"></i>
+          </a>
+        </div>
+      </li>
+      <li class="onhover-div mobile-setting">
+        <div>
+          <a [routerLink]="'/wishlist'">
+            <img src="assets/images/icon/feather/wishlist.png" class="img-fluid icon-height" alt="" style="width:25px" title="Wishlist">
+          <i class="ti-settings"></i>
+          </a>
+        </div>
+      </li>
+      <li class="onhover-div mobile-cart" *ngIf="!productsService?.catalogMode">
+        <div>
+          <a [routerLink]="'/cart'">
+            <img src="assets/images/icon/feather/shopping-bag.svg" class="img-fluid icon-width icon-height" alt="" title="Shopping cart">
+            <i class="ti-shopping-cart"></i>
+          </a>
+        </div>
+        <div *ngIf="!isLogin">
+          <!-- <ul class="show-div shopping-cart" *ngIf='!shoppingCartItems.length'>
+            <h5>Your cart is currently empty.</h5>
+          </ul> -->
+          <span class="cart_qty_cls">{{shoppingCartItems.length}}</span>
+        
+          <!-- <ul class="show-div shopping-cart" *ngIf='shoppingCartItems.length'>
+            <li *ngFor="let item of shoppingCartItems">
+              <div class="media">
+                <a [routerLink]="['/home/left-sidebar/product', item.productId]"><img class="mr-3" src="assets/images/fashion/product/13.jpg" alt="Generic placeholder image"></a>
+                <div class="media-body">
+                  <a [routerLink]="['product-detail/product', item.productId]"><h4>{{ item?.product?.productName }}</h4></a>
+                  <h4><span>{{ item.quantity }} x {{ item?.product?.price?.indPrice?.dealPrice | currency:productsService?.currency:'symbol' }}</span></h4>
+                </div>
+              </div>
+              <div class="close-circle">
+                <a (click)="removeItem(item)"><i class="fa fa-times" aria-hidden="true"></i></a>
+              </div>
+            </li>
+            <li>
+              <div class="total">
+                <h5>subtotal : <span>{{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span></h5>
+              </div>
+            </li>
+            <li>
+              <div class="buttons">
+                <a [routerLink]="'/cart'" class="view-cart">view cart</a>
+                <a [routerLink]="'/address'" class="checkout">checkout</a>
+              </div>
+            </li>
+          </ul> -->
+        </div>
+        <div *ngIf="isLogin">
+          <!-- <ul class="show-div shopping-cart" *ngIf='!shoppingCartItems.data.length'>
+            <h5>Your cart is currently empty.</h5>
+          </ul> -->
+          <span class="cart_qty_cls" *ngIf='shoppingCartItems.length'>{{shoppingCartItems?.length}}</span>
+          <span class="cart_qty_cls" *ngIf='!shoppingCartItems.length'>0</span>
+          <!-- <ul class="show-div shopping-cart" *ngIf='shoppingCartItems.data.length'>
+            <li *ngFor="let item of shoppingCartItems?.data">
+              <div class="media">
+                <a [routerLink]="['/home/left-sidebar/product', item.productId]"><img class="mr-3" src="assets/images/fashion/product/13.jpg" alt="Generic placeholder image"></a>
+                <div class="media-body">
+                  <a [routerLink]="['product-detail/product', item.productId]"><h4>{{ item?.productName }}</h4></a>
+                  <h4><span>1 x {{ item?.price?.indPrice?.dealPrice | currency:productsService?.currency:'symbol' }}</span></h4>
+                </div>
+              </div>
+              <div class="close-circle">
+                <a (click)="removeItem(item)"><i class="fa fa-times" aria-hidden="true"></i></a>
+              </div>
+            </li>
+            <li>
+              <div class="total">
+                <h5>subtotal : <span>{{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span></h5>
+              </div>
+            </li>
+            <li>
+              <div class="buttons">
+                <a [routerLink]="'/cart'" class="view-cart">view cart</a>
+                <a [routerLink]="'/address'" class="checkout">checkout</a>
+              </div>
+            </li>
+          </ul> -->
+        </div>
+      </li>
+      <li class="onhover-div mobile-setting">
+        <div><a [routerLink]="['/profile']"><img src="assets/images/icon/feather/user.svg" class="img-fluid icon-width icon-height big" alt="" title="Account"></a>
+          <i class="ti-settings"></i></div>
+          <div class="show-div setting" *ngIf="!get_user_dtls">
+            <ul>
+              <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('login')">Login</a> </li>
+              <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('register')">Register</a> </li>
+            </ul>
+          </div>
+        <!-- <div class="show-div setting">
+          <ul>
+            <li *ngIf="get_user_dtls"><a [routerLink]="['/profile']">My Profile1</a> </li>
+            <li *ngIf="get_user_dtls"><a [routerLink]="['/order-list']">My Orders</a> </li>
+            <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('login')">Login</a> </li>
+            <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('register')">Register</a> </li>
+            <li *ngIf="get_user_dtls"><a (click)="openLoginNav('changepassword')">Change Password</a> </li>
+            <li *ngIf="get_user_dtls"><a (click)="logOutUser()">Logout</a> </li>
+          </ul>
+        </div> -->
+      </li>
+    </ul>
+  </div>
+  <div class="icon-nav mobile fixed-on-mobile">
+    <ul class="main_ul">
+      <li class="onhover-div mobile-search search-widgets" id="search-widgets">
+        <div>
+          <a [routerLink]="'/search'" class="search_icon">
+            <img src="assets/images/icon/feather/search.svg"  class="img-fluid icon-width icon-height" alt="">
+            <!-- <i class="ti-search"></i> -->
+          </a>
+        </div>
+      </li>
+      <li class="onhover-div mobile-setting">
+        <div>
+          <a [routerLink]="'/wishlist'" class="wishlist_icon">
+            <img src="assets/images/icon/feather/wishlist.png" class="img-fluid icon-height visibel" alt="">
+          <!-- <i class="ti-settings"></i> -->
+          </a>
+        </div>
+      </li>
+      <li class="onhover-div mobile-setting">
+        <div>
+          <a [routerLink]="'/home'">
+            <img src="assets/images/favicon.png" class="img-fluid icon-height logo_icon" alt="" style="width:27px">
+          <!-- <i class="ti-settings"></i> -->
+          </a>
+        </div>
+      </li>
+      <li class="onhover-div mobile-setting">
+        <div>
+          
+          <a [routerLink]="'/cart'">
+            <img src="assets/images/icon/feather/shopping-bag.svg" class="img-fluid icon-height" alt="" style="width:27px">
+            <sup class="cart_qty_cls" style="top: -9px;">{{shoppingCartItems.length}}</sup>
+          <!-- <i class="ti-settings"></i> -->
+          </a>
+        </div>
+      </li>
+      <li class="onhover-div mobile-setting">
+        
+        <div>
+          <a [routerLink]="['/profile']">
+            <img src="assets/images/icon/feather/user.svg" class="img-fluid icon-width icon-height" alt="">
+          </a>
+          <!-- <i class="ti-settings"></i> -->
+        </div>
+        <div class="show-div setting" *ngIf="!get_user_dtls">
+          <ul>
+            <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('login')">Login</a> </li>
+            <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('register')">Register</a> </li>
+          </ul>
+        </div>
+        <!-- <div class="show-div setting">
+          <h6>language</h6>
+          <ul>
+            <li *ngIf="get_user_dtls"><a [routerLink]="['/profile']">My Profile</a> </li>
+            <li *ngIf="get_user_dtls"><a [routerLink]="['/order-list']">My Orders</a> </li>
+            <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('login')">Login</a> </li>
+            <li *ngIf="!get_user_dtls"><a (click)="openLoginNav('register')">Register</a> </li>
+            <li *ngIf="get_user_dtls"><a (click)="openLoginNav('changepassword')">Change Password</a> </li>
+            <li *ngIf="get_user_dtls"><a (click)="logOutUser()">Logout</a> </li>
+          </ul>
+          <h6 *ngIf="!productsService?.catalogMode">currency</h6>
+          <ul class="list-inline" *ngIf="!productsService?.catalogMode">
+            <li><a [routerLink]="" (click)="updateCurrency('USD')">Dollar</a> </li>
+            <li><a [routerLink]="" (click)="updateCurrency('EUR')">Euro</a> </li>
+            <li><a [routerLink]="" (click)="updateCurrency('INR')">Rupees</a> </li>
+            <li><a [routerLink]="" (click)="updateCurrency('GBP')">Pound</a> </li>
+          </ul>
+        </div> -->
+      </li>
+      <!-- <li class="onhover-div mobile-cart" *ngIf="!productsService?.catalogMode">
+        <div>
+          <a [routerLink]="'/cart'">
+            <img src="assets/images/icon/feather/shopping-bag.svg" class="img-fluid icon-width icon-height" alt="">
+            <i class="ti-shopping-cart"></i>
+          </a>
+        </div>
+        <ul class="show-div shopping-cart" *ngIf='!shoppingCartItems.length'>
+          <h5>Your cart is currently empty.</h5>
+        </ul>
+        <span class="cart_qty_cls">{{shoppingCartItems.length}}</span>
+        <ul class="show-div shopping-cart" *ngIf='shoppingCartItems.length'>
+          <li *ngFor="let item of shoppingCartItems">
+            <div class="media">
+              <a [routerLink]="['/home/left-sidebar/product', item.productId]"><img class="mr-3" src="assets/images/fashion/product/13.jpg" alt="Generic placeholder image"></a>
+              <div class="media-body">
+                <a [routerLink]="['product-detail/product', item.productId]"><h4>{{ item?.product?.productName }}</h4></a>
+                <h4><span>{{ item.quantity }} x {{ item?.product?.price?.indPrice?.dealPrice | currency:productsService?.currency:'symbol' }}</span></h4>
+              </div>
+            </div>
+            <div class="close-circle">
+              <a (click)="removeItem(item)"><i class="fa fa-times" aria-hidden="true"></i></a>
+            </div>
+          </li>
+          <li>
+            <div class="total">
+              <h5>subtotal : <span>{{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span></h5>
+            </div>
+          </li>
+          <li>
+            <div class="buttons">
+              <a [routerLink]="'/cart'" class="view-cart">view cart</a>
+              <a [routerLink]="'/address'" class="checkout">checkout</a>
+            </div>
+          </li>
+        </ul>
+      </li> -->
+    </ul>
+  </div>
+  <!-- Search -->
+  <div id="search-overlay" class="search-overlay" *ngIf="show" [ngStyle]="{ 'display': 'block' }">
+    <div>
+      <span class="closebtn" title="Close Overlay" (click)="closeSearch()">×</span>
+      <div class="overlay-content">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-12">
+              <form>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Search a Product">
+                </div>
+                <button type="submit" class="btn btn-primary" style="    position: absolute;
+                right: -30px;
+                top: -4px;
+            "><img src="/assets/images/icon/feather/search.svg" /></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- login side nav -->
+  <div id="logiSidenav" class="loginsidenav">
+    <a [routerLink]="" class="sidebar-overlay" (click)="closeLoginNav()"></a>
+    <nav>
+    <div (click)="closeLoginNav()">
+        <div class="sidebar-back text-left">
+          <i class="ti-close"></i> Close
+        </div>
+    </div>
+    <section class="login-page">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12 login" >
+                  <h3>SIGN IN</h3>
+                  <form class="theme-form"  #loginModalForm="ngForm" (ngSubmit)="onSubmitSingInForm(loginModalForm)"  (keyup.enter)="onSubmitSingInForm(loginModalForm)"  novalidate  >
+                    <input type="hidden"  name="type" [(ngModel)]="model.userType">
+                    <div class="form-group">
+                      <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email required matInput placeholder="Ex. pat@example.com">
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="model.password" required>
+                        <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </a>
+                      </mat-form-field>
+                    </div>
+                    <input type="hidden" name="socialType" [(ngModel)]="model.socialType">
+                    <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p>
+                    <button class="btn btn-solid" [ngClass]="{'loadingEnable':isLoading}" type="submit" [disabled]="!loginModalForm.valid || isLoading" >
+                      <div class="spinner-border text-muted"></div>
+                      Login
+                    </button>
+                  </form>
+                  <div class="footer-theme ">
+                    <div class="sub-title">
+                      <ul class="more-option mt-2">
+                        <li (click)="openLoginNav('forgotpassword')">Forgot your password?</li>
+                        <li (click)="openLoginNav('register')">Don't have account? Sign Up</li>
+                      </ul>
+                      <p class="font-bold text-black text-center mt-4"><b>Or Sign in with</b></p>
+                      <p class="login-socal mb-4 mt-4 text-center">
+                        <a (click)="signInWithGoogle('google')" class="socal-link mr-5">
+                          <img src="assets/images/icon/google.png" alt="">
+                        </a>
+                        <a (click)="signInWithGoogle('facebook')" class="socal-link">
+                          <img src="assets/images/icon/facebook.png" alt="">
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <!-- <button (click)="openLoginNav('register')" class="btn btn-outline">Register</button> -->
+              </div>
+              <div class="col-lg-12 register" >
+                <h3>create account</h3>
+                <!-- (keyup.enter)="onSubmitCreateAccount(createAccountForm)" -->
+                  <form class="theme-form" #createAccountForm="ngForm" (ngSubmit)="onSubmitCreateAccount(createAccountForm)"  novalidate>
+                    <!-- Hidden data -->
+                    <input type="hidden" name="registerType" [(ngModel)]="model.registerType">
+                    <input type="hidden" name="dob" [(ngModel)]="model.dob">
+
+                    <div class="form-group mb-0">
+                      <mat-form-field appearance="fill">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" name="firstName" [(ngModel)]="model.firstName" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group mb-0">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" name="lastName" [(ngModel)]="model.lastName" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group mb-0">
+                      <mat-form-field appearance="fill">
+                        <input matInput (dateChange)="dateFormatChange('dob', $event)" (dateInput)="dateFormatChange('dob', $event)" [matDatepicker]="dob" placeholder="Date of birth" name="dateofbirth" [(ngModel)]="model.dateofbirth" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                        <mat-datepicker #dob></mat-datepicker>
+                      </mat-form-field>
+                      <input type="hidden" name="dob" [(ngModel)]="model.dob">
+                    </div>
+                    <div class="form-group mb-0">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Mobile Number</mat-label>
+                        <input matInput OnlyNumber="true" type="tel" minlength="10" maxlength="10" name="mobileNo" [(ngModel)]="model.mobileNo" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group mb-0">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email required>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group mb-0">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hideset ? 'password' : 'text'" name="password" [(ngModel)]="model.password" required>
+                        <a mat-icon-button matSuffix (click)="hideset = !hideset" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hideset ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </a>
+                      </mat-form-field>
+                    </div>
+                    <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p>
+                    <button class="btn btn-solid" type="submit" [ngClass]="{'loadingEnable':isLoading}" [disabled]="!createAccountForm.valid || isLoading">
+                      <div class="spinner-border text-muted"></div>
+                      Create Account
+                    </button>
+                  </form>
+                  <div class="footer-theme ">
+                    <div class="sub-title">
+                      <ul class="more-option mt-2">
+                        <li (click)="openLoginNav('forgotpassword')">Forgot your password?</li>
+                        <li (click)="openLoginNav('login')">Have a account? Sign In</li>
+                      </ul>
+                      <p class="font-bold text-black text-center mt-4"><b>Or Sign in with</b></p>
+                      <p class="login-socal mb-4 mt-4 text-center">
+                        <a (click)="signInWithGoogle('google')" class="socal-link mr-5">
+                          <img src="assets/images/icon/google.png" alt="">
+                        </a>
+                        <a (click)="signInWithGoogle('facebook')" class="socal-link">
+                          <img src="assets/images/icon/facebook.png" alt="">
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-lg-12 changepassword">
+                <h3>Change Password</h3>
+                <form class="theme-form" #changePasswordForm="ngForm" (ngSubmit)="onSubmitChangePassword(changePasswordForm)" (keyup.enter)="onSubmitChangePassword(changePasswordForm)" [mustMatch]="['newPass', 'confirm_password']" novalidate>
+                  <!-- hidden data -->
+                  <input *ngIf="get_user_dtls" type="hidden" name="userName" [(ngModel)]="get_user_dtls.username">
+                  <input *ngIf="get_user_dtls" type="hidden" name="uid" [(ngModel)]="get_user_dtls.uid">
+                  <input *ngIf="get_user_dtls" type="hidden" name="email" [(ngModel)]="get_user_dtls.email">
+
+                  <div class="form-group">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Old Password</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" name="oldPass" [(ngModel)]="model.oldPass">
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field appearance="fill">
+                      <mat-label>New Password</mat-label>
+                      <input matInput [type]="hide2 ? 'password' : 'text'" name="newPass" [(ngModel)]="model.newPass" #password="ngModel">
+                      <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Confirm Password</mat-label>
+                      <input matInput [type]="hide3 ? 'password' : 'text'" name="confirm_password" [(ngModel)]="model.confirm_password" #confirmPassword="ngModel">
+                      <button mat-icon-button matSuffix (click)="hide3 = !hide3" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p>
+                  <button class="btn btn-solid" type="submit" [ngClass]="{'loadingEnable':isLoading}" [disabled]="!changePasswordForm.valid || isLoading">
+                    <div class="spinner-border text-muted"></div>
+                    Change Password
+                  </button>
+                  
+                </form>
+                <!-- <div class="footer-theme ">
+                  <div class="sub-title">
+                    <ul>
+                      <li>Forgot your password?</li>
+                    </ul>
+                  </div>
+                </div>
+                <button (click)="openLoginNav('register')" class="btn btn-outline">Login</button> -->
+              </div>
+              <div class="col-lg-12 forgotpassword" >
+                
+                <div *ngIf="!emaillinksent">
+                  <h3>Forgot Password</h3>
+                  <p class="note">Enter your email and we'll send you a link to reset your password.</p>
+                  <form class="theme-form" #forgotPasswordForm="ngForm" (ngSubmit)="onSubmitForgotPassword(forgotPasswordForm)" (keyup.enter)="onSubmit(forgotPasswordForm)" novalidate>
+                    <div class="form-group mb-0">
+                      <mat-form-field appearance="fill">
+                        <mat-label>email</mat-label>
+                        <input matInput type="email" name="email" [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" email required>
+                      </mat-form-field>
+                    </div>
+                    <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p>
+                    <button class="btn btn-solid" type="submit" [ngClass]="{'loadingEnable':isLoading}" [disabled]="!forgotPasswordForm.valid || isLoading">
+                      <div class="spinner-border text-muted"></div>
+                      Submit
+                    </button>
+                    
+                  </form>
+                  <div class="footer-theme ">
+                    <div class="sub-title">
+                      <ul class="more-option mt-2">
+                        <li (click)="openLoginNav('register')">Don't have account? Sign Up</li>
+                        <li (click)="openLoginNav('login')">Have a account? Sign In</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="emaillinksent">
+                  <h3>REQUEST SUCCESSFULLY MADE</h3>
+                  <p>YOUR REQUEST TO RETRIEVE YOUR PASSWORD HAS BEEN RECEIVED CORRECTLY.</p>
+                  <p>YOU WILL SHORTLY RECEIVE A MAIL WITH INSTRUCTIONS TO FOLLOW IN ORDER TO COMPLETE THE PROCESS.</p>
+
+                  <button class="btn btn-solid" (click)="closeLoginNav()">
+                    Accept
+                  </button>
+                </div>
+              </div>
+          </div>
+      </div>
+  </section>
+    </nav>
+  </div>

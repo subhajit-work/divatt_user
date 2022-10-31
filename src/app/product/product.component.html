@@ -1,0 +1,59 @@
+
+<div class="img-wrapper">
+  <div class="lable-block">
+    <!-- <span class="lable3" title="New"></span> -->
+    <span class="lable4" title="Sale" *ngIf="product?.price?.indPrice?.discountValue"></span>
+  </div>
+  <div class="front">
+    <!--  [queryParams]="product.productName" -->
+    <a [routerLink]="['/product-detail/', product.productId]" target="_blank">
+     <img src="assets/images/fashion/product/80.jpg" class="img-fluid" alt="" *ngIf="!product.images[0].name">
+        <img [src]="!variantImage ? product.images[0].name : variantImage" class="img-fluid" alt="" *ngIf="product.images[0].name">
+      </a>
+  </div>
+  <!-- <ul class="product-thumb-list">
+    <li class="grid_thumb_img" 
+      *ngFor="let variant of product.images;let i = index" [ngClass]="{'d-none': i > 3}">
+      <a [routerLink]="" (click)="changeVariantImage(variant.name)" [ngClass]="{'active': selectedItem == variant.name}">
+        <img [src]="variant.name" *ngIf="variant.name">
+        <img src="assets/images/fashion/product/80.jpg" alt="" *ngIf="!variant.name">
+      </a>
+    </li>
+  </ul> -->
+ <!-- Product details -->
+  <!-- <div class="product-detail">
+    <div>
+      
+      <div class="designer">
+        <div class="name" *ngIf="product.designerName != null">{{product?.designerName}} </div>
+        <div class="name" *ngIf="product.designerName == null">Designer Name </div>
+      </div>
+        <a >
+        <h6>{{product?.productName}}</h6>
+      </a>
+      <h4 *ngIf="!productsService?.catalogMode">₹ {{product?.price?.indPrice?.dealPrice}}
+        <del><span class="money">₹ {{product?.price?.indPrice?.mrp}}</span></del>
+      </h4>
+    </div>
+   
+  </div> -->
+  <a  class="action_btn actionWishlist" (click)="addToWishlist(product)" title="Add to Wishlist">
+    <img _ngcontent-tmi-c2="" alt="" class="icon-height wishlist_icon" src="assets/images/icon/feather/wishlist.png"  title="Wishlist">
+  </a>
+</div>
+<div class="product-detail2 buttom">
+  <div>
+    
+    <div class="designer">
+      <div class="name" *ngIf="product.designerName != null">{{product?.designerName}} </div>
+      <div class="name" *ngIf="product.designerName == null">Designer Name </div>
+    </div>
+      <a >
+      <h6>{{product?.productName}}</h6>
+    </a>
+    <h4 *ngIf="!productsService?.catalogMode">₹ {{product?.price?.indPrice?.dealPrice}}
+      <del><span class="money">₹ {{product?.price?.indPrice?.mrp}}</span></del>
+    </h4>
+  </div>
+ 
+</div>

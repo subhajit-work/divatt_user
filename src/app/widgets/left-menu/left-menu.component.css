@@ -1,0 +1,19 @@
+.tablets
+{
+    display: none;
+}
+.desktop
+{
+    display: block;
+} 
+@media screen and (max-width:768px) 
+{
+    .tablets
+    {
+        display: block;
+    }
+    .desktop
+    {
+        display: none;
+    }    
+}

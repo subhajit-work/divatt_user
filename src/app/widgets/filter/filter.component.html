@@ -1,0 +1,26 @@
+ <!-- Collection Sidebar -->
+
+ 
+      <div class="px-2 mr-2 pb-4">
+
+        <app-category></app-category>
+        <hr/>
+        <app-brand [tagsFilters]="tags" (tagFilters)="updateTagFilters($event)" *ngIf="tags.length"></app-brand>
+        <app-color [colorsFilters]="colors" (colorFilters)="updateColorFilters($event)" *ngIf="colors.length"></app-color>
+       
+       <app-price (priceFilters)="updatePriceFilters($event)"></app-price>
+       <!-- brand filter start -->
+        <div class="collection-collapse-block open">
+          <h3 class="collapse-block-title"><span class="lead">designer</span></h3>
+          <div class="collection-collapse-block-content">
+            <div class="collection-brand-filter">
+              <div class="custom-control custom-checkbox collection-filter-checkbox" *ngFor="let filter of designers">
+                <input type="checkbox" class="custom-control-input" [value]="filter.dId" (change)=checkedFilter($event) id="{{filter.dId}}">
+                <label class="custom-control-label" for="{{filter.dId}}">{{filter?.designerProfileEntity?.designerName}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      

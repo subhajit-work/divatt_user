@@ -1,0 +1,218 @@
+<!-- thank-you section start -->
+<section class="section-b-space pb-4 pt-5">
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="success-text w-fit p-3  m-auto">
+                    <!-- <i class="fa fa-check-circle" aria-hidden="true"></i> -->
+                    <div class="img">
+                        <img src="assets/images/check.png" alt="">
+                    </div>
+                    <div class="text pl-3">
+                        <h2> Order received</h2>
+                        <p>Payment is sucessfully processed and your order is on the way.</p>
+                        <p>Transaction Id : <span class="font-weight-bold">{{orderDetails?.paymentData?.paymentDetails?.razorpay_payment_id}}</span></p>
+                        <p>Your Order Id : <span class="font-weight-bold">{{orderDetails?.orderId}}</span> </p>
+                        <p><a  [routerLink]="['/order-list']" class="btn btn-solid">Go to My orders</a></p>
+                    </div>
+                    <hr style="border-left: 0;border-width: 3px; border-bottom: 0;border-color: rgb(0 0 0);margin-top: 38px;">
+                   
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section ends -->
+<section class="section-b-space order-success">
+    <!-- <div class="container">
+        
+        <div class="row">
+            <div class="col-lg-5">
+                <p class="text-muted font-weight-bold text-uppercase pb-2 font-15">Order Details</p>
+                <div class="order-item border-top border-bottom d-flex pt-3 pb-3 mb-2" *ngFor="let orders of orderDetails?.products;let i = index">
+                    <div class="imgbox">
+                        <img [src]="orders?.images!= null ? orders?.images : 'assets/images/fashion/product/80.jpg'" alt="">
+                    </div>
+                    <div class="descption pl-3">
+                        <p class="product-name font-weight-bold mb-1 text-black">
+                            {{orders?.productName}}
+                        </p>
+                        <div class="product-desc  text-dark font-12">
+                            colour : {{orders?.colour}} <span *ngIf="!orders.colour">--</span>
+                        </div>
+                        <div class="product-desc  text-dark font-12">
+                            Size: {{ orders?.size }} <span *ngIf="!orders.size">--</span>
+                        </div>
+                        
+                        <div class="itemcode  text-dark font-10">
+                           <span class="text-dark font-12">Code : </span><span class="text-uppercase">{{orders?.productSku}}</span> 
+                        </div>
+                        <div class="price mt-2 text-black font-weight-bolder">
+                            ₹{{orders?.salesPrice}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted font-weight-bold text-uppercase pb-2 font-15">Payment Details</p>
+                <div class="order-summary border-top  pt-3 pb-3 mb-3">
+                    <p class="text-dark font-weight-medium mb-3">Order Total <span class="float-right">₹{{orderDetails?.mrp}}</span></p>
+                    <p class="text-dark font-weight-medium mb-3">Discount <span class="float-right">- ₹{{orderDetails?.discount}}</span></p>
+                    <p class="text-dark font-weight-medium mb-3">GST 18% <span class="float-right">+ ₹{{orderDetails?.taxAmount}}</span></p>
+                    <p class="text-dark font-weight-medium mb-3">Shipping <span class="float-right">₹0</span></p>
+                    <p class="text-dark font-weight-normal mb-3 bg-light p-2 font-12"><i class="ti ti-truck"></i>&nbsp;Payment Mode <span class="float-right">{{orderDetails?.paymentData?.paymentMode}}</span></p>
+                    <p class="text-black font-weight-medium mb-2 p-2 border-top border-bottom">Total Payable<span class="float-right">₹{{orderDetails?.totalAmount}}</span></p>
+                </div>
+               
+            </div>
+            <div class="col-md-3">
+                <p class="text-muted font-weight-bold text-uppercase pb-2 font-15">SHIPPING ADDRESS</p>
+                <div class="shipping-address border-top border-bottom pt-3 pb-3 mb-3">
+                    <div class="text-black font-weight-bold text-uppercase font-12">SHIPPING ADDRESS</div>
+                    <div class="text-dark font-12">
+                        <div>
+                            {{orderDetails?.shippingAddress?.fullName}}
+                        </div>
+                        <div class="height-overflow-ellips">
+                            {{orderDetails?.shippingAddress?.address1}}
+                        </div>
+                    </div>
+                    <div class="text-dark mb-3 font-12">{{orderDetails?.shippingAddress?.country}} - {{orderDetails?.shippingAddress?.postalCode}}<br>
+                            {{orderDetails?.shippingAddress?.mobile}}
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div> -->
+    <div class="container">
+        <h1 class="heading" >Your order details</h1>
+        <div class="table-responsive">
+            <table class="order-table" >
+                <thead>
+                <tr >
+                    <td colspan="1" class="text-center" style="width: 10%;">PRODUCT</td>
+                    <td colspan="3" class="text-center" >Descption</td>
+                    <td class="text-center qty">QUANTITY</td>
+                    <td class="text-center" colspan="1">PRICE</td>
+                </tr>
+                </thead>
+    
+                <tbody>
+                    <tr *ngFor="let orders of orderDetails?.OrderSKUDetails;let i = index">
+                        <td style="width: 10%;">
+                            <img [src]="orders?.images!= null ? orders?.images : 'assets/images/fashion/product/80.jpg'" class="item-img">
+                        </td>
+                        <td colspan="3" class="text-left" style="width:53%;margin-left:10px;">
+                            <p class="designername"><b>{{orders?.designerName}}</b></p>
+                            <p>{{orders?.productName}}</p>
+                            <p class="font-12"> colour : <span [style.background-color]="orders?.colour" class="color-icon"></span><span *ngIf="!orders.colour">--</span></p>
+                            <p><span class="text-dark font-12">Code : </span><span class="text-uppercase">{{orders?.productSku}}</span> </p>
+                        </td>
+                        <td style="width:10%;">
+                            <table style="width:100%;">
+                                <tr><td style="width:60%;">Size  :</td> <td >{{ orders?.size }}</td></tr>
+                                <tr><td style="width:60%;">QTY  :</td> <td >{{ orders?.units }}</td></tr>
+                            </table>
+                        </td>
+                        <td style="width:16%;">
+                        <table style="width:100%;">
+                            <tr><td class="font-weight-bold">₹ {{ orders?.salesPrice }}</td></tr>
+                        </table>
+                        </td>
+                    </tr>
+                </tbody>
+            
+            </table>
+            <table class="singel-row w-100">
+                <tbody>
+                    <tr>
+                        <td class="left">
+                            Products
+                        </td>
+                        <td class="right" >
+                            ₹ {{orderDetails?.mrp}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            Discount
+                        </td>
+                        <td class="right">
+                           - ₹ {{orderDetails?.discount}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            Gift Wripping
+                        </td>
+                        <td class="right">
+                           + ₹ 0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            Tax Amount
+                        </td>
+                        <td class="right">
+                            ₹ {{orderDetails?.taxAmount}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left font-weight-bold">
+                            TOTAL PAID
+                        </td>
+                        <td class="right">
+                            ₹ {{orderDetails?.totalAmount}}
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <h4  class="heading2">Delivery Address</h4>
+                <ul class="order-detail">
+                    <li>{{orderDetails?.shippingAddress?.fullName}}</li>
+                    <li>{{orderDetails?.shippingAddress?.address1}}</li>
+                    <li>{{orderDetails?.shippingAddress?.state}}</li>
+                    <li>{{orderDetails?.shippingAddress?.country}}, {{orderDetails?.shippingAddress?.postalCode                                               }}</li>
+                    <li>Contact No. {{orderDetails?.shippingAddress?.mobile}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-5">
+                <!-- <div class="float-right"> -->
+                    <h4  class="heading2">Shipping Address</h4>
+                    <ul class="order-detail">
+                        <li>{{orderDetails?.shippingAddress?.fullName}}</li>
+                        <li>{{orderDetails?.shippingAddress?.address1}}</li>
+                        <li>{{orderDetails?.shippingAddress?.state}}</li>
+                        <li>{{orderDetails?.shippingAddress?.country}}, {{orderDetails?.shippingAddress?.postalCode                                               }}</li>
+                        <li>Contact No. {{orderDetails?.shippingAddress?.mobile}}</li>
+                    </ul>
+                <!-- </div> -->
+                
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section class="section-b-space pb-4 pt-5">
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="error_box">
+                    <div class="error_icon m-auto">
+                        <mat-icon>
+                            priority_high
+                        </mat-icon>
+                    </div>
+                    <p class="message">Something wents to wrong !</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section> -->
+<app-footer></app-footer>

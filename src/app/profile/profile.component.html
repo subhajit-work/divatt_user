@@ -1,0 +1,202 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Profile</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb End -->
+
+<!--section start-->
+<section class="profile-section section-b-space">
+    <div class="container">
+        <div class="profile-wrapper">
+            <!-- <div class="profileimg text-center mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" width="100px" class="img-rounded">
+            </div> -->
+            <div class="w-fit m-auto label">
+                <mat-spinner class="formloader small-width" *ngIf="imageLoader"></mat-spinner>
+                <img [src]="userDetailsFromApi?.profilePic ? userDetailsFromApi?.profilePic :'assets/images/nouser.png'" alt="" width="100px" class="img-rounded">
+                <label for="profilepic" class="image_update_btn"><mat-icon>edit</mat-icon></label>
+              </div> 
+                <input type="file"  id="profilepic"  class="opacity-0 h-0 p-0" [ngClass]="{ 'disabled': imageLoader}" accept="image/x-png,image/gif,image/jpeg,image/jpg,image/jfif"  (change)="chooseFile($event)">
+                
+            <h2 class="text-center">Welcome <br> {{userDetailsFromApi?.firstName}} {{userDetailsFromApi?.lastName}}</h2>
+            <!-- <p>From Your "Profile" Page You Have The Ability To View Your Recent Account Activity And Update Your Account Information. Just Select A Link Below.</p> -->
+        </div>
+        <div class="container">
+            <div class="custom-tab">
+                <div class="row">
+                    <div class="col-md-3">
+                        
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Account Information</a>
+                            <a class="nav-link" [routerLink]="['/address/all']" role="tab" aria-selected="false">Address</a>
+                            <a class="nav-link" [routerLink]="['/order-list']" role="tab" aria-selected="false">Orders</a>
+                            <a class="nav-link" (click)="openchangepasswordNav()" role="tab" aria-selected="false">Change Password</a>
+                            <a class="nav-link" (click)="logOutUser()" role="tab" aria-selected="false">Logout</a>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+
+                    <div class="col-md-9">
+                        
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="card tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <div class="card-header" role="tab" id="v-collapse-heading-home">
+                                    <a data-toggle="collapse" href="#v-collapse-home" class="theme-color" data-parent="#v-pills-tabContent" aria-expanded="true" aria-controls="v-collapse-home">
+                                        Account Information
+                                    </a>
+                                </div>
+                                <div id="v-collapse-home" class="collapse show" role="tabpanel" aria-labelledby="v-collapse-heading-home" data-parent="#v-pills-tabContent">
+                                    <div class="card-body">
+                                        <div class="tab-header">
+                                            <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
+                                            <a  class="lead  font-sm color-main" (click)="openModal(updatemodal)"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
+                                        </div>
+                                        <ul class="show-details">
+                                            <li class="d-flex">
+                                                <span class="title_info">Name:</span>
+                                                <span class="text_info">{{userDetailsFromApi?.firstName}} {{userDetailsFromApi?.lastName}}</span>
+                                            </li>
+                                            <li class="d-flex">
+                                                <span class="title_info">Date of Birth:</span>
+                                                <span class="text_info">{{userDetailsFromApi?.dob | date:'dd MMM yyy'}}</span>
+                                            </li>
+                                            <li class="d-flex">
+                                                <span class="title_info">Username:</span>
+                                                <span class="text_info">{{userDetailsFromApi?.username}}</span>
+                                            </li>
+                                            <li class="d-flex">
+                                                <span class="title_info">Mobile Number:</span>
+                                                <span class="text_info">{{userDetailsFromApi?.mobileNo}}</span>
+                                            </li>
+                                            <li class="d-flex">
+                                                <span class="title_info">Email:</span>
+                                                <span class="text_info">{{userDetailsFromApi?.email}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="card tab-pane fade" role="tabpanel">
+                                <div class="card-header" role="tab">
+                                    <a [routerLink]="['/address/all']" aria-expanded="false" class="text-decoration none theme-color">
+                                        Address
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="card tab-pane fade" role="tabpanel">
+                                <div class="card-header" role="tab">
+                                    <a [routerLink]="['/order-list']" aria-expanded="false" class="text-decoration none theme-color">
+                                        Orders
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="card tab-pane fade" role="tabpanel">
+                                <div class="card-header" role="tab">
+                                    <a (click)="openchangepasswordNav()" aria-expanded="false" class="text-decoration none theme-color">
+                                        Change Password
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="card tab-pane fade" role="tabpanel">
+                                <div class="card-header" role="tab">
+                                    <a (click)="logOutUser()" aria-expanded="false" class="text-decoration none theme-color">
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+</section>
+<!--section end-->
+<!-- profile modal -->
+<ng-template #updatemodal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+        Update Your Profile
+        </h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>  
+    <div class="modal-body">
+        <!-- <img src="../assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyload" /> -->
+        <form class="theme-form" #updateUser="ngForm" (ngSubmit)="onSubmitUserAccount(updateUser)" (keyup.enter)="onSubmitCreateAccount(updateUser)" novalidate>
+        <!-- Hidden data -->
+        <div class="form-group mb-0">
+            <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" name="firstName" [(ngModel)]="model.firstName" required>
+            </mat-form-field>
+        </div>
+        <div class="form-group mb-0">
+            <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" name="lastName" [(ngModel)]="model.lastName" required>
+            </mat-form-field>
+        </div>
+        <div class="form-group mb-0">
+            <mat-form-field appearance="fill">
+            <input matInput (change)="dateFormatChange(model.dob)"  placeholder="Choose a date" type="date" name="dob" [(ngModel)]="model.dob" required>
+            </mat-form-field>
+        </div>
+        <input type="hidden" name="senddob" [(ngModel)]="model.senddob">
+        <div class="form-group mb-0">
+            <mat-form-field appearance="fill" class="disabled">
+            <mat-label>Mobile Number</mat-label>
+            <input matInput readonly OnlyNumber="true" type="number" tabindex="-1"  minlength="10" maxlength="10" pattern="^((\\+91-?)|0)?[0-9]{10}$"  onKeyPress="if(this.value.length==10) {return false;}" name="mobileNo" [(ngModel)]="model.mobileNo" required>
+            </mat-form-field>
+        </div>
+        <div class="form-group mb-0">
+            <mat-form-field appearance="fill" class="disabled" >
+            <mat-label>email</mat-label>
+            <input matInput readonly type="email" name="email" tabindex="-1"  [(ngModel)]="model.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required>
+            </mat-form-field>
+        </div>
+        <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p>
+        <div class="d-flex">
+            <button class="btn btn-solid" type="submit" [ngClass]="{'loadingEnable':isLoading}" [disabled]="!updateUser.valid || isLoading">
+                <div class="spinner-border text-muted"></div>
+                Update
+            </button> &nbsp;
+            <a class="btn btn-link" (click)="modal.dismiss('Cross click')">
+                Cancel
+            </a>
+        </div>
+        
+        </form>
+    </div>
+</ng-template>
+  <!--profile modal /-->
+<app-footer></app-footer>

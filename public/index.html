@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Divatt</title>
+  <base href="./">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Divatt Designers world">
+  <meta name="author" content="CF">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+  <!-- Google Fonts -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> -->
+
+  <!-- External css -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations.min.js"></script>
+  <script type="text/javascript" src="assets/js/sticky-kit.js"></script>
+<link rel="stylesheet" href="styles.d8997ee74e85cbc9ffc3.css"></head>
+<body>
+  <app-root></app-root>
+   <script>
+        $(document).ready(function () {
+            if ($(window).width() > 991) {
+                $(".product_img_scroll, .pro_sticky_info").stick_in_parent();
+            }
+        });
+        const slider = $(".slick-slide");
+        slider.on('wheel', (function(e) {
+          e.preventDefault();
+
+          if (e.originalEvent.deltaY < 0) {
+            $(this).slick('slickNext');
+          } else {
+            $(this).slick('slickPrev');
+          }
+        }));
+    </script>
+    <!-- sticky sidebar -->
+    <script type="text/javascript" src="assets/js/sticky-kit.js"></script>
+<script src="runtime.458556a34b891ea32398.js" defer></script><script src="polyfills-es5.e1a2d8f5fb53f56c02c2.js" nomodule defer></script><script src="polyfills.65e25e3c843d8b14906c.js" defer></script><script src="scripts.620df2c2355c9f4e9942.js" defer></script><script src="main.6cadfff445bad24c91db.js" defer></script></body>
+</html>

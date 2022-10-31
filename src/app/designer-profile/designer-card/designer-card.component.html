@@ -1,0 +1,228 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="page-title">
+          <h2>Designers</h2>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <nav aria-label="breadcrumb" class="theme-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+            <li class="breadcrumb-item active">Designers</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb End -->
+<section class="designerlisting">
+  <div class="toggle-btn">
+    <!-- <i [ngClass]="{'active': gridMode}" (click)="changeDisplay('grid')" class="fa fa-th" aria-hidden="true"></i> -->
+    <!-- <i [ngClass]="{'active': !gridMode}" (click)="changeDisplay('list')"><mat-icon>format_list_bulleted</mat-icon></i> -->
+    <!-- <a [ngClass]="{'active': gridMode}" (click)="changeDisplay('grid')"><mat-icon>grid_view</mat-icon></a>
+    <a [ngClass]="{'active': !gridMode}" (click)="changeDisplay('list')"><mat-icon>format_list_bulleted</mat-icon></a> -->
+  </div>
+  <div class="container-fluid fixed-width">
+    <div class="row justify-content-center mb-5" *ngIf="type == 'all'">
+      <div class="bg-gray-200 toggle-btn2 text-sm text-gray-500 leading-none border-2 border-gray-200 rounded-full d-flex">
+        <button [ngClass]="{'active': designerType == 'all'}" (click)="changeType('all')" class="d-flex align-items-center transition-colors duration-300 ease-in focus:outline-none hover:text-blue-400 focus:text-blue-400 rounded-l-full px-4 py-2 active">
+          <!-- <mat-icon>format_list_bulleted</mat-icon> -->
+          All
+        </button>
+        <button [ngClass]="{'active': designerType == 'Neo'}" (click)="changeType('Neo')" class="d-flex align-items-center transition-colors duration-300 ease-in focus:outline-none hover:text-blue-400 focus:text-blue-400 rounded-l-full px-4 py-2 active">
+          <!-- <mat-icon>format_list_bulleted</mat-icon> -->
+          Neo
+        </button>
+        <button [ngClass]="{'active': designerType == 'Pop'}" (click)="changeType('Pop')" class="d-flex align-items-center transition-colors duration-300 ease-in focus:outline-none hover:text-blue-400 focus:text-blue-400 rounded-r-full px-4 py-2">
+          <!-- <mat-icon>grid_view</mat-icon> -->
+          <span>Pop</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid fixed-width" *ngIf="designerlist.length">
+    <div class="row justify-content-right mb-3" *ngIf="type != 'all'">
+      <div class="bg-gray-200 toggle-btn2 text-sm text-gray-500 leading-none border-2 border-gray-200 rounded-full d-flex">
+        <button [ngClass]="{'active': gridMode}" (click)="changeDisplay('grid')" class="d-flex align-items-center transition-colors duration-300 ease-in focus:outline-none hover:text-blue-400 focus:text-blue-400 rounded-l-full px-4 py-2 active">
+          <mat-icon>format_list_bulleted</mat-icon>Grid
+        </button>
+        <button [ngClass]="{'active': !gridMode}" (click)="changeDisplay('list')" class="d-flex align-items-center transition-colors duration-300 ease-in focus:outline-none hover:text-blue-400 focus:text-blue-400 rounded-r-full px-4 py-2">
+          <mat-icon>grid_view</mat-icon>
+          <span>List</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container text-center" *ngIf="loader">
+    <mat-spinner class="loader m-auto"></mat-spinner>
+    <p class="mt-1 mb-0"><small><b>Loading..</b></small></p>
+  </div>
+  <div class="container" *ngIf="!designerlist.length" [ngClass]="{'d-none': loader}">
+    <div class="row justify-content-center empty-cart-cls">
+      <div class="text-center">
+        <img src="/assets/images/notfound.png" alt="" class="opacity-6">
+        <p class="custom-title">No designer found!!</p>
+      </div>
+      
+    </div>
+  </div>
+  <div class="container gridMode mb-5" *ngIf="gridMode" >
+    <div class="col-md-12 m-auto">
+       <div class="row mt-2 mb-5">
+        <!-- <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let designer of designerlist;let i = index" [ngClass]="{'d-none': !designer?.productCount}">
+            <div class="card3 p-3" [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]" >              
+                <div class="profile_info d-flex justify-content-between align-items-cente">
+                  <a>
+                    <div class="d-flex align-items-center">
+                      <img *ngIf="designer.designerProfileEntity.designerProfile.profilePic == null" src="assets/images/noimage.jpg" alt="No Image">
+                      <img *ngIf="designer.designerProfileEntity.designerProfile.profilePic" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic" alt="No Image">
+                      <div class="name">
+                        <h2>
+                          {{designer?.designerProfileEntity?.designerProfile?.firstName}}  {{designer?.designerProfileEntity?.designerProfile?.lastName}}
+                        </h2>
+                        <p class="job-title">
+                          <span><a>Products:</a>{{designer?.productCount}}</span>
+                          <span><a>Followers:</a>{{designer?.follwerCount}}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="profile_descption">
+                  {{designer?.designerProfileEntity?.socialProfile?.description}}
+                  <p class="text-center" *ngIf="!designer?.designerProfileEntity?.socialProfile?.description">No description</p>
+              </div>
+            </div>
+        </div> -->
+        <div class="col-lg-3 col-md-4 col-sm-6 card4" *ngFor="let designer of designerlist;let i = index" [ngClass]="{'d-none': !designer?.productCount}" >
+          <div class="pb-2" >
+            <div class="follow_btn text-right" *ngIf="!get_user_dtls" title="Login to follow designer.">
+              <!-- <a href=""></a> -->
+              <img src="assets/images/follow.png" class="follow_img disabled" alt="" *ngIf="!designer.follwerCount">
+              <img src="assets/images/unfollow.png" class="follow_img disabled" alt="" *ngIf="designer.follwerCount">
+              
+            </div>
+            <div class="follow_btn text-right" *ngIf="get_user_dtls">
+              <!-- <a href=""></a> -->
+              <img src="assets/images/follow.png" class="follow_img curser-pointer" style="width: 19px;" *ngIf="!designer?.isFollowing" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)">
+                    <img src="assets/images/unfollow.png" class="follow_img curser-pointer"style="width: 19px;" *ngIf="designer?.isFollowing" (click)="openfollowModal('unfollow',followmodal,designer?.designerProfileEntity?.designerId)">
+              
+            </div>
+            <div [routerLink]="['../../designer/', designer?.designerProfileEntity?.designerId]">
+              <div [routerLink]="['../../designer/', designer?.designerProfileEntity?.designerId]">
+                <img  [src]="designer?.designerProfileEntity?.designerProfile?.profilePic ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'" alt="">
+                <h5 class="name" >{{designer?.designerProfileEntity?.designerName}}</h5>
+              </div> 
+              <div class="descption">
+                <mat-icon>campaign</mat-icon> {{designer?.designerProfileEntity?.boutiqueProfile?.boutiqueName}}
+              </div>
+              <div class="followers">
+                Followers :&nbsp;{{designer?.follwerCount}}
+              </div>
+            </div>
+            
+            <!-- <div class="socal mt-2">
+              <a [href]="designer?.designerProfileEntity?.socialProfile?.facebookLink" target="_blank">
+                <i class="fa fa-facebook"></i>
+              </a>
+              <a [href]="designer?.designerProfileEntity?.socialProfile?.youtubeLink" target="_blank">
+                <i class="fa fa-youtube-play"></i>
+              </a>
+              <a [href]="designer?.designerProfileEntity?.socialProfile?.instagramLink" target="_blank">
+                <i class="fa fa-instagram"></i>
+              </a>
+            </div> -->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+     
+  </div>
+  <div class="designer mb-2" *ngIf="!gridMode" >
+    <div class="container mt-2" *ngFor="let designer of designerlist;let i = index"  style="background-color: rgb(246 246 246)">
+      <div class="row">
+        <div class="col-md-12">
+         
+          <div class="profile_card p-3">
+            <div class="row">
+              <div class="col-md-2"> 
+                <div class="imgbox">
+                  <img class="rounded mt-5" [routerLink]="'../../designer/'+designer?.designerProfileEntity?.designerId" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic!= null ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'"/>
+                </div>
+              </div>
+              <div class="col-md-10 p-3 py-5">
+                <div class="descption">
+                  <div class="name d-flex align-items-center justify-content-between mb-2"> 
+                    <div class="d-flex">
+                      <span [routerLink]="'../../designer/'+designer?.designerProfileEntity?.designerId" class="designer">{{designer?.designerProfileEntity?.designerName}}</span> 
+                      <div class="rating text-center ml-4">
+                        <div class="scale_rating m-auto">
+                          <span>3.7</span>
+                          <img src="assets/images/rating/scale.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+                  <p class="followers"> <span class="follower"><b>Follower :</b> {{designer?.follwerCount}}</span> <span class="product"><b>Products : </b> {{designer?.productCount}}</span></p>
+                  <p class="info_text font-family lead" >
+                    {{designer?.designerProfileEntity?.socialProfile?.description}}
+                  </p>
+                </div>
+              </div>
+            </div>    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- follow  modal -->
+<ng-template #followmodal let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">
+        Follow the Designer
+      </h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+      </button>
+  </div>  
+  <div class="modal-body">
+      <!-- <img src="../assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyload" /> -->
+      <form class="theme-form" #followDesigner="ngForm" (ngSubmit)="onSubmitFollowform(followDesigner)" (keyup.enter)="onSubmitFollowform(updateUser)" novalidate>
+      <!-- Hidden data -->
+      <input type="hidden" name="designerId" [(ngModel)]="model.designerId">
+      <input type="hidden" name="userId" [(ngModel)]="model.userId">
+      <input type="hidden" name="isFollowing" [(ngModel)]="model.isFollowing">
+      <div class="form-group mb-0">
+          <mat-form-field appearance="fill">
+          <mat-label>Comment</mat-label>
+          <input matInput type="text" name="comment" [(ngModel)]="modal.comment" required>
+          </mat-form-field>
+      </div>
+      <!-- <div class="form-group">
+        <P>Give Rating</P>
+        <ul class="list-inline rating-list" 
+          *ngFor="let star of stars" style="display: inline-block" >
+            <li (click)="countStar(star)"
+                [ngClass]="{'selected': (star <= selectedValue)}">
+              <i class="fa fa-star"></i>
+            </li> 
+      </ul>
+      </div> -->
+      <!-- <input type="hidden" name="raiting" [(ngModel)]="model.raiting" required> -->
+      <!-- <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p> -->
+      <button class="btn btn-solid" type="submit" [ngClass]="{'loadingEnable':isLoading}">
+          <div class="spinner-border text-muted"></div>
+          Follow 
+      </button>
+      </form>
+  </div>
+</ng-template>
+<!--follow modal /-->
+
+<app-footer></app-footer>

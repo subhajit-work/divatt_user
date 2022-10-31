@@ -1,0 +1,206 @@
+
+<!--  -->
+<div class="container-fluid fixed-width px-0 mx-0 mb-0 body-first-child">
+    <app-slider></app-slider>
+</div>
+
+<!-- Top designer start -->
+<!-- <div class="title1  section-t-space">
+    <h4>New</h4>
+    <h2 class="title-inner1">Top designer</h2>
+</div>
+<app-product-slider [products]="products"></app-product-slider> -->
+<section class="section-b-space p-t-0 pb-2">
+    <div class="title1  section-t-space">
+        <!-- <h4>New</h4> -->
+        <h2 class="title-inner1 mb-0 pb-0">Top designer</h2>
+    </div>
+    <div class="container-fluid fixed-width for_desktop designerlisting">
+      <div class="row padding-lg">
+        <div class="col-lg-2 col-md-4 col-sm-6 card4" *ngFor="let designer of designerlist;let i = index">
+          <div class="pb-2">
+            <div class="follow_btn text-right">
+              <img src="assets/images/unfollow.png" class="follow_img" alt="" *ngIf="!designer.follwerCount" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)">
+              <img src="assets/images/follow.png" class="follow_img" alt="" *ngIf="designer.follwerCount">
+            </div>
+            <div [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]">
+              <img [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'" alt="">
+              <h5 class="name" [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]">{{designer?.designerProfileEntity?.designerName}}</h5>
+            </div> 
+            <div class="descption" [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]">
+              <i class="fa fa-map-marker" aria-hidden="true"></i> {{designer?.designerProfileEntity?.socialProfile?.address}}
+            </div>
+            <div class="followers" [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]">
+              Followers :&nbsp;{{designer?.follwerCount}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid two-on-small designer-slider for_mobile">
+      <div class="row">
+        <div class="col">
+          <ngx-slick-carousel class="product-4 product-m no-arrow product-slider" #slickModal="slick-carousel" [config]="productSlideConfig">
+            <div ngxSlickItem class="card4" *ngFor="let designer of designerlist;let i = index">
+              <div class="pb-2">
+                <div class="follow_btn text-right">
+                  <img src="assets/images/unfollow.png" class="follow_img" alt="" *ngIf="!designer.follwerCount" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)">
+                  <img src="assets/images/follow.png" class="follow_img" alt="" *ngIf="designer.follwerCount">
+                </div>
+                <div>
+                  <img [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'" alt="">
+                  <h5 class="name" [routerLink]="['../designer/', designer?.designerProfileEntity?.designerId]">{{designer?.designerProfileEntity?.designerName}}</h5>
+                </div> 
+                <div class="descption">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i> {{designer?.designerProfileEntity?.socialProfile?.address}}
+                </div>
+                <div class="followers">
+                  Followers :&nbsp;{{designer?.follwerCount}}
+                </div>
+              </div>
+               
+             </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Top designer end -->
+
+<!-- Bestseller start -->
+<section class="section-b-space p-t-0 pt-0">
+    <div class="title1  section-t-space pt-0">
+        <h2 class="title-inner1 pt-0">Best seller</h2>
+    </div>
+    <div class="container-fluid fixed-width two-on-small nospace-mobile">
+      <div class="row">
+        <div class="col">
+          <ngx-slick-carousel class="product-4 product-m no-arrow product-slider" #slickModal="slick-carousel" [config]="productSlideConfig">
+            <div ngxSlickItem class="product-box" *ngFor="let product of products">
+               <app-product [product]="product"></app-product>
+               
+              <!-- <div class="img-wrapper">
+                <div class="lable-block">
+                  <span class="lable3">new</span>
+                  <span class="lable4" *ngIf='product.sale'>on sale</span>
+                </div>
+                <div class="front">
+                  <a [routerLink]="['/product-detail/', product.productId]">
+                    <img [src]="product?.images[0].name!= null ? product?.images[0].name : 'assets/images/fashion/product/80.jpg'" class="img-fluid">
+                  </a>
+                </div>
+               <ul class="product-thumb-list">
+                  <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == 'assets/images/fashion/product/1.jpg'}"
+                    >
+                    <a  (click)="changeVariantImage('assets/images/fashion/product/1.jpg')">
+                      <img src="assets/images/fashion/product/1.jpg">
+                    </a>
+                  </li>
+                  <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == 'assets/images/fashion/product/2.jpg'}"
+                    >
+                    <a  (click)="changeVariantImage('assets/images/fashion/product/2.jpg')">
+                      <img src="assets/images/fashion/product/2.jpg">
+                    </a>
+                  </li>
+                  <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == 'assets/images/fashion/product/3.jpg'}"
+                    >
+                    <a  (click)="changeVariantImage('assets/images/fashion/product/3.jpg')">
+                      <img src="assets/images/fashion/product/3.jpg">
+                    </a>
+                  </li>
+                  <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == 'assets/images/fashion/product/4.jpg'}"
+                    >
+                    <a  (click)="changeVariantImage('assets/images/fashion/product/4.jpg')">
+                      <img src="assets/images/fashion/product/4.jpg">
+                    </a>
+                  </li>
+                </ul>
+                Product details
+                <div class="product-detail">
+                  <div>
+                    
+                    <div class="designer">
+                      <div class="name" *ngIf="product.designerName != null">{{product?.designerName}} </div>
+                      <div class="name" *ngIf="product.designerName == null">Designer Name </div>
+                    </div>
+                    <a >
+                      <h6>{{product?.productName}}</h6>
+                    </a>
+                    <h4 *ngIf="!productsService?.catalogMode">₹ {{product?.price?.indPrice?.dealPrice}}
+                      <del><span class="money">₹ {{product?.price?.indPrice?.mrp}}</span></del>
+                    </h4>
+                  </div>
+                
+                </div>
+                <a  class="action_btn actionWishlist" (click)="addToWishlist(product)" title="Add to Wishlist">
+                  <img src="assets/images/divattIcons/lock.png">
+                </a>
+                <a  class="action_btn actionCompare" (click)="addToCompare(product)" title="Compare">
+                  <i class="ti-reload" aria-hidden="true"></i>
+                </a>
+              </div> -->
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Bestseller end -->
+
+<!-- New product start -->
+<section class="section-b-space p-t-0">    
+    <div class="title1  section-t-space">
+        <h2 class="title-inner1">New product</h2>
+    </div>
+    <div class="container-fluid fixed-width two-on-small nospace-mobile">
+      <div class="row">
+        <div class="col">
+          <ngx-slick-carousel class="product-4 product-m no-arrow product-slider" #slickModal="slick-carousel" [config]="productSlideConfig">
+            <div ngxSlickItem class="product-box" *ngFor="let product of products">
+               <app-product [product]="product"></app-product>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- New product end -->
+
+<!-- Recently viewed start -->
+<!-- <div class="title1  section-t-space">
+    <h4>special offer</h4>
+    <h2 class="title-inner1">Recently viewed</h2>
+</div> -->
+<section class="section-b-space p-t-0">    
+  <div class="title1  section-t-space">
+      <h2 class="title-inner1">Recently viewed</h2>
+  </div>
+  <!-- <div class="container-fluid two-on-small">
+    <app-product-slider [products]="products"></app-product-slider>
+  </div> -->
+  <div class="container-fluid fixed-width two-on-small nospace-mobile mb-4">
+    <div class="row">
+      <div class="col">
+        <ngx-slick-carousel class="product-4 product-m no-arrow product-slider" #slickModal="slick-carousel" [config]="productSlideConfig">
+          <div ngxSlickItem class="product-box" *ngFor="let product of products">
+             <app-product [product]="product"></app-product>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recently viewed end -->
+
+<app-footer></app-footer>
+<!-- <a href="#" class="btn btn-solid fixed" [routerLink]="['../product-compare']"  style="" [ngClass]="{'disabled': allcompareproduct.length < 2}" *ngIf="allcompareproduct != '' " >
+    <i  aria-hidden="true" class="ti-reload"></i> Compare Now
+  </a> -->
+
+  <!--**************** old design  *******************-->
+<!-- <app-category-collection-banner></app-category-collection-banner> -->
+<!-- <app-product-tab [products]="products"></app-product-tab> -->
+<!-- <app-parallax-banner></app-parallax-banner> -->
+<!-- <app-services></app-services> -->

@@ -1,0 +1,205 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="page-title">
+          <h2>cart</h2>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <nav aria-label="breadcrumb" class="theme-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+            <li class="breadcrumb-item active">cart</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb End -->
+<!-- section start for localstorage-->
+<section class="cart-section cart-page section-b-space" *ngIf="localstorage">
+  <div class="container pb-4">
+    <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!shoppingCartItems.length">
+      <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+      <h3><strong>Your Cart is Empty</strong></h3>
+      <h4>Add something to make me happy :)</h4>
+    </div>
+    <div class="row" *ngIf='shoppingCartItems.length'>
+     <div class="col-lg-12 m-auto">
+        <div class="cart-item" *ngFor="let item of shoppingCartItems">
+          <div class="item_image">
+            <a [routerLink]="['/product-detail/', item.productId]">
+              <img [src]="item?.product?.images[0].name!=null ? item?.product?.images[0].name :  'assets/images/fashion/product/80.jpg'" alt="">
+            </a>
+          </div>
+          <div class="item_descption">
+            <div class="item_descption-inner">
+              <div class="item_name">
+                <div class="designername mb-1" *ngIf="item?.product?.designerName != null">{{item?.product?.designerName}} </div>
+                <div class="designername mb-1" *ngIf="item?.product?.designerName == null">Designer Name </div>
+                <a [routerLink]="['/product-detail/', item.productId]">{{ item?.product?.productName }}</a>
+                <div class="product_type size">
+                  Size: {{ item?.product?.selectedSize }}
+                </div>
+                <!-- <div class="product_type bold">
+                  {{item?.productDescription}}
+                </div> -->
+                <!-- <div class="product_type">
+                  {{item?.gender}}
+                </div> -->
+              </div>
+              <!-- <div class="onlydesigner">
+                <div class="designername" *ngIf="item.product.designerName != null">{{item?.product?.designerName}} </div>
+                <div class="designername" *ngIf="item.product.designerName == null">Designer Name </div>
+              </div> -->
+              <div class="qty-box">
+                <div class="input-group">
+                  <span class="input-group-prepend">
+                  <button type="button" class="btn quantity-left-minus" (click)="decrement(item.product)" data-type="minus" data-field="">
+                    <i class="ti-minus"></i>
+                  </button>
+                </span>
+                  <input type="text" name="quantity" disabled class="form-control input-number" [(ngModel)]="item.quantity">
+                  <span class="input-group-prepend">
+                  <button type="button" class="btn quantity-right-plus" (click)="increment(item.product)" data-type="plus" data-field="">
+                    <i class="ti-plus"></i>
+                  </button>
+                </span>
+                </div>
+              </div>
+              <div class="item_price">
+                <h5 class="td-color">{{ item?.product?.price?.indPrice?.dealPrice * item.quantity | currency:productsService?.currency:'symbol' }}</h5>
+              </div>
+            </div>
+            <div class="item_action">
+              <a  (click)="removeItem(item)" class="icon">
+                <i class="ti-close"></i>
+              </a>
+              <a (click)="addToWishlist(item.product)" class="wishlist_icon">
+                <img src="assets/images/divattIcons/lock.png"  class="img-fluid wishlist_btn" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+   <div class="position-fixed cart-btn-section">
+      <div class="total_price d-flex align-items-center">
+        <div class="price d-grid"> 
+          <div class="w-100 font-10">
+            <!-- <span>Total:</span><span class="float-right"> {{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span> -->
+            <span>Total:</span><span class="float-right"> {{ total_price }}</span>
+          </div>
+        </div>
+        
+        <div class="btnBox" *ngIf='shoppingCartItems.length'>
+          <a  class="btn btn-solid" (click)="openLoginNav()">Login to Proceed</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--section end localstorage-->
+<!-- section start for localstorage-->
+<div class="container" [ngClass]="{'d-none': loader}" *ngIf="shoppingCartItems.length && !localstorage">
+  <div class="w-100 mt-2" *ngIf="mulDelBtn">
+    <p class="text-right"> 
+      <a (click)="askToClearcart()" class="btn btn-link text-success"><u>Clear Cart</u></a>
+    </p>
+  </div>
+</div>
+
+<section class="cart-section  cart-page section-b-space" *ngIf="!localstorage" [ngClass]="{'disabled': pageDisabled}">
+  <div class="container pb-4">
+    <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!shoppingCartItems.length" [ngClass]="{'d-none': loader}">
+      <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+      <h3><strong>Your Cart is Empty.</strong></h3>
+      <!-- <h4>Add something to make me happy :)</h4> -->
+    </div>
+    <div class="container text-center" *ngIf="loader">
+      <mat-spinner class="loader m-auto"></mat-spinner>
+      <p class="mt-1 mb-0"><small><b>Loading..</b></small></p>
+    </div>
+    <div class="row" *ngIf="shoppingCartItems.length">
+     <div class="col-lg-12 m-auto">
+        <div class="cart-item" *ngFor="let item of shoppingCartItems">
+          <div class="item_image">
+            <a [routerLink]="['/product-detail/', item.productId]">
+              <img [src]="item?.images[0].name!=null ? item?.images[0].name :  'assets/images/fashion/product/80.jpg'" alt="">
+            </a>
+          </div>
+          <div class="item_descption">
+            <div class="item_descption-inner">
+              <div class="item_name">
+                <div class="designername  mb-1" *ngIf="item.designerName != null">{{item?.designerName}} </div>
+                <div class="designername  mb-1" *ngIf="item.designerName == null">Designer Name </div>
+                <a [routerLink]="['/product-detail/', item.productId]">{{ item?.productName }}</a>
+                <div class="product_type size">
+                  Size: {{ item?.selectedSize }}
+                </div>
+              </div>
+              <div class="qty-box">
+                <div class="input-group">
+                  <span class="input-group-prepend">
+                  <button type="button" class="btn quantity-left-minus" [ngClass]="{'disabled': item.cartData.qty == 1}" (click)="setQuantity('decrement',item,item.cartData.qty)" data-type="minus" data-field="">
+                    <i class="ti-minus"></i>
+                  </button>
+                </span>
+                  <input type="text" name="quantity" disabled class="form-control input-number" min="1" [(ngModel)]="item.cartData.qty">
+                  <span class="input-group-prepend">
+                  <button type="button" class="btn quantity-right-plus" (click)="setQuantity('increment',item,item.cartData.qty)" data-type="plus" data-field="">
+                    <i class="ti-plus"></i>
+                  </button>
+                </span>
+                </div>
+              </div>
+              <div class="item_price">
+                <h5 class="td-color">₹ {{item.cartData.qty * item?.price?.indPrice?.dealPrice}}</h5>
+              </div>
+            </div>
+            <div class="item_action">
+              <a (click)="removeItem(item)" class="icon">
+                <i class="ti-close"></i>
+              </a>
+              <a (click)="addToWishlist(item)" class="wishlist_icon">
+                <img src="assets/images/divattIcons/lock.png"  class="img-fluid" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- <div class="row cart-buttons" *ngIf='shoppingCartItems.length'>
+      <div class="col-6">
+        <a [routerLink]="['/home/left-sidebar/collection/all']" class="btn btn-solid">continue shopping</a>
+      </div>
+      <div class="col-6">
+        <a [routerLink]="['/checkout']" class="btn btn-solid">check out</a>
+      </div>
+    </div> -->
+    <div class="position-fixed cart-btn-section">
+      <div class="total_price d-flex align-items-center">
+        <div class="price d-grid"> 
+          <div class="w-100 font-10 mb-1">
+            <!-- <span>Total:</span><span class="float-right"> {{ getTotal() | async | currency:productsService?.currency:'symbol'}}</span> -->
+            <span>Total:</span><span class="float-right">₹ {{ total_price}}</span>
+          </div>
+          
+          <!-- <p class="font-10 mb-2 text-right">GST include</p>
+          <p class="font-10 m-0 text-right">* EXCL SHIPPING COST</p> -->
+        </div>
+        
+        <div class="btnBox" *ngIf='shoppingCartItems.length'>
+          <a [routerLink]="['/address/shop']" class="btn btn-solid">Proceed</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--section end localstorage-->
+

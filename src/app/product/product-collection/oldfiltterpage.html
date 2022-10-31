@@ -1,0 +1,33 @@
+<div class="isotopeSelector px-4 mt-2 mb-2">
+    <div class="product-box">
+        <div class="img-wrapper">
+            <div class="front">
+                <a [routerLink]="'/product-detail/product/1'"><img src="{{content.pictures[0]}}" class="img-fluid blur-up lazyload" alt=""></a>
+            </div>
+            <div class="cart-info cart-wrap">
+  
+                <button title="Whishlist">
+                  <img _ngcontent-pjg-c4="" alt="" class="img-fluid" style="width: 70%; padding: 5px;" src="assets/images/divattIcons/lock.png">
+                </button>
+  
+            </div>
+        </div>
+  
+    </div>
+
+    <div class="product-productMetaInfo">
+      <h3 class="product-brand">{{content.name}}</h3>
+      <h4 class="product-product">{{content.name}}</h4>
+      <div class="product-price">
+        <span>
+          <span class="product-discountedPrice">
+            <!-- react-text: 507 -->Rs. <!-- /react-text --><!-- react-text: 508 -->{{content.price}}<!-- /react-text -->
+          </span>
+          <span class="product-strike">
+            <!-- react-text: 510 -->Rs. <!-- /react-text --><!-- react-text: 511 -->{{content.salePrice}}<!-- /react-text -->
+          </span>
+        </span>
+        <span class="product-discountPercentage">({{content.discount}}% OFF)</span>
+      </div>
+    </div>
+  </div>

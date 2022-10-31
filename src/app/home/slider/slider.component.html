@@ -1,0 +1,99 @@
+<style>
+
+  .ui-carousel-items-content
+  {
+    height: --focus-color;
+  }
+</style>
+<div class="row  d-md-block d-lg-block">
+  <div class="col-12 p-0 m-0">
+    <!-- <p-carousel
+      [value]="category"
+      orientation="vertical"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="true"
+      verticalViewPortHeight="1000px"
+    >
+    
+    
+      <ng-template let-category pTemplate="item">
+        <div class="category-banner">
+          <h1 class="display-3 text-light">{{ category.categoryName }}</h1>
+          <a
+            class="text-center"
+            [routerLink]="'/collections/collection/' + category.categoryName"
+            class="btn btn-solid text-dark rounded"
+            >shop now</a
+          >
+        </div>
+
+        <img
+          [src]="category.categoryUrl"
+          [style.width.px]="innerWidth"
+          [style.height.px]="innerheight"
+          style="
+            object-fit: cover;
+            filter: brightness(0.5);
+          "
+        />
+        </ng-template>
+    </p-carousel> -->
+    <ngx-slick-carousel  [style.width.px]="innerWidth"
+    [style.height.px]="innerheight - 100" class="product-4 product-m banner" #slickModal="slick-carousel" [config]="bannerSlideConfig">
+      <div ngxSlickItem class="product-box" *ngFor="let item of category">
+        <div class="category-banner text-center">
+          <h1 class="display-3 text-light text-uppercase">{{ item?.title }}</h1>
+          <a
+            class="text-center"
+            *ngIf="item.title != 'Designer'"
+            routerLink="/collections/{{item?.title}}/All"
+            class="btn btn-solid rounded"
+            >shop now</a
+          >
+          <a
+            class="text-center"
+            *ngIf="item.title == 'Designer'"
+            routerLink="/designer-list/all"
+            class="btn btn-solid rounded"
+            >View All</a
+          >
+        </div>
+        <img
+          [src]="item?.image"
+          [style.width.px]="innerWidth"
+          [style.height.px]="innerheight - 92"
+          style="
+            object-fit: cover;
+          "
+        />
+        <span class="line"></span>
+      </div>
+    </ngx-slick-carousel>
+  </div>
+</div>
+<!-- 
+<div class="row d-block d-sm-none">
+  <div class="col-12 p-0 m-0">
+    <div
+      class="position-relative"
+      *ngFor="let category of category"
+      style="height: 700px"
+    >
+      <div
+        class="mobile-category"
+        [style.background]="'url(' + category.categoryUrl + ')'"
+      >
+        <div class="category-banner-mobile">
+          <h1 class="display-3 text-light">{{ category.categoryName }}</h1>
+          <a
+            class="text-center"
+            [routerLink]="'/collections/collection/' + category.categoryName"
+            class="btn btn-solid text-dark rounded"
+            >shop now</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

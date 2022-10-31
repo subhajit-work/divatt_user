@@ -1,0 +1,9 @@
+.address-box{
+    max-height: 93rem;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+sup {
+    top: 0px;
+    font-size: 16px;
+}

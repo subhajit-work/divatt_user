@@ -1,0 +1,225 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="page-title">
+          <h2>wishlist</h2>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <nav aria-label="breadcrumb" class="theme-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+            <li class="breadcrumb-item active">wishlist</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb End -->
+<!--section not for localstorage start-->
+<section class="wishlist-section  section-b-space" *ngIf="localstorage">
+  <div class="container text-center" *ngIf="loader">
+    <mat-spinner class="loader m-auto"></mat-spinner>
+    <p class="mt-1 mb-0"><small><b>Loading..</b></small></p>
+  </div>
+  <div class="container two-on-small">
+    <div class="col-md-12 empty-cart-cls text-center" *ngIf='!wishlistItems.length'  [ngClass]="{'d-none': loader}">
+      <img src="assets/images/empty-wishlist.png" alt="Empty cart" title="Emprt cart">
+      <h3 class="mt-4"><b>Wishlist is Empty</b></h3>
+      <h4>Explore more shortlist some items.</h4>
+    </div>
+    <div class="row" *ngIf='wishlistItems.length'>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor="let item of wishlistItems;let i = index">
+        <div class="product-box">
+          <div class="img-wrapper">
+            <div class="front">
+              <a [routerLink]="['/product-detail', item.productId]">
+                <img  [src]="item?.images[0].name!=null ? item?.images[0].name :  'assets/images/fashion/product/80.jpg'" alt="" class="w-100 img-fluid">
+              </a>
+            </div>
+            <ul class="product-thumb-list">
+              <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == variant.images}"
+                *ngFor="let variant of item.variants">
+                <a [routerLink]="" (click)="changeVariantImage(variant.images)">
+                  <img [src]="variant.images">
+                </a>
+              </li>
+            </ul>
+            <!-- Product details -->
+            <!-- <div class="product-detail">
+              <div>
+                
+                <div class="designer">
+                   <div class="name">{{item?.designerName}}</div>
+                </div>
+                <a [routerLink]="['productDetail/product', item.productId]">
+                  <a [routerLink]="['/oroduct-detail/product', item.productId]"><h6>{{ item?.productName }}</h6></a>
+                </a>
+                <h4 *ngIf="!productsService?.catalogMode">₹ {{item?.price?.indPrice?.dealPrice}}
+                  </h4>
+              </div>
+             
+            </div> -->
+            <a [routerLink]="" class="action_btn actionWishlist"   (click)="removeItem(item,userId)" title="Remove form Wishlist">
+              <i class="ti-close" aria-hidden="true"></i>
+            </a>
+            <!-- <a [routerLink]="" class="action_btn actionCompare" (click)="addToCompare(item)" title="Add to Compare">
+              <i class="ti-reload" aria-hidden="true"></i>
+            </a> -->
+          </div>
+          <div class="product-detail2 buttom">
+            <div>
+              
+              <div class="designer">
+                <div class="name" *ngIf="item.designerName != null">{{item?.designerName}} </div>
+                <div class="name" *ngIf="item.designerName == null">Designer Name </div>
+              </div>
+                <a >
+                <h6>{{item?.productName}}</h6>
+              </a>
+              <h4>₹ {{item?.price?.indPrice?.dealPrice}}
+                <del><span class="money">₹ {{item?.price?.indPrice?.mrp}}</span></del>
+              </h4>
+            </div>
+           
+          </div>
+          <div class="text-center">
+            <div class="p-0 size-box">
+              <ul class="mb-0">
+                <li *ngFor="let productSize of item?.standeredSOH"> <button type="button" class="btn btn-dark btn-circle btn-xs" [ngClass]="{'active': selectedSize[i] == productSize.sizeType }" (click)="changeSizeVariant(productSize?.sizeType,i)"><span class="lead">{{productSize?.sizeType}}</span></button></li>
+              </ul>
+            </div>
+          </div>
+          <div class="text-center">
+            <a (click)="addToCart(item,1)" class="btn btn-solid mt-3" [ngClass]="{'disabled': !selectedSize[i]}">Move To Cart</a>
+          </div>
+        </div>
+      </div>
+     </div>
+    <div class="row justify
+    -content-end wishlist-buttons mt-5  ml-0" *ngIf='wishlistItems.data'>
+      <div class="p-0">
+        <a [routerLink]="['/collections/collection/all']" class="btn btn-solid">continue shopping</a>
+        <a [routerLink]="['/address']" class="btn btn-solid">check out</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!--section  not for localstorage end-->
+  <!--section not for localstorage start-->
+  <section class="wishlist-section  section-b-space" *ngIf="get_user_dtls">
+    <div class="container text-center" *ngIf="loader">
+      <mat-spinner class="loader m-auto"></mat-spinner>
+      <p class="mt-1 mb-0"><small><b>Loading..</b></small></p>
+    </div>
+    <div class="container two-on-small">
+      <div class="col-md-12 empty-cart-cls text-center" *ngIf='emptyWishlist' [ngClass]="{'d-none': loader}">
+        <img src="assets/images/empty-wishlist.png" alt="Empty cart" title="Emprt cart">
+        <h3 class="mt-4"><b>Wishlist is Empty.</b></h3>
+        <!-- <h4>Explore more shortlist some items.</h4> -->
+      </div>
+      <div class="row" *ngIf='!emptyWishlist' [ngClass]="{'disabled': pageDisabled}">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4" *ngFor="let item of wishlistItems?.data;let i = index" [ngClass]="{'d-none': loader}">
+          <div class="product-box">
+            <div class="img-wrapper">
+              <div class="front">
+                <a [routerLink]="['/product-detail', item.productId]">
+                  <img  [src]="item?.images[0].name!=null ? item?.images[0].name :  'assets/images/fashion/product/80.jpg'" alt="" class="w-100 img-fluid">
+                </a>
+              </div>
+              <ul class="product-thumb-list">
+                <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == variant.images}"
+                  *ngFor="let variant of item.variants">
+                  <a [routerLink]="" (click)="changeVariantImage(variant.images)">
+                    <img [src]="variant.images">
+                  </a>
+                </li>
+              </ul>
+              <!-- Product details -->
+              <!-- <div class="product-detail">
+                <div>
+                  
+                  <div class="designer">
+                    <div class="name">{{item?.designerName}}</div>
+                  </div>
+                  <a [routerLink]="['productDetail/product', item.productId]">
+                    <a [routerLink]="['/oroduct-detail/product', item.productId]"><h6>{{ item?.productName }}</h6></a>
+                  </a>
+                  <h4 *ngIf="!productsService?.catalogMode">₹ {{item?.price?.indPrice?.dealPrice }}
+                    </h4>
+                </div>
+               
+              </div> -->
+              <a class="action_btn actionWishlist"   (click)="removeItem(item,userId)" title="Remove form Wishlist">
+                <i class="ti-close" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="product-detail2 buttom">
+              <div>
+                
+                <div class="designer">
+                  <div class="name" *ngIf="item.designerName != null">{{item?.designerName}} </div>
+                  <div class="name" *ngIf="item.designerName == null">Designer Name </div>
+                </div>
+                  <a >
+                  <h6>{{item?.productName}}</h6>
+                </a>
+                <h4>₹ {{item?.price?.indPrice?.dealPrice}}
+                  <del><span class="money">₹ {{item?.price?.indPrice?.mrp}}</span></del>
+                </h4>
+              </div>
+             
+            </div>
+            <div class="text-center">
+              <div class="p-0 size-box">
+                <ul class="mb-0">
+                  <li *ngFor="let productSize of item?.standeredSOH"> <button type="button" class="btn btn-dark btn-circle btn-xs" [ngClass]="{'active': selectedSize[i] == productSize.sizeType }" (click)="changeSizeVariant(productSize?.sizeType,i)"><span class="lead">{{productSize?.sizeType}}</span></button></li>
+                </ul>
+              </div>
+            </div>
+            <div class="text-center">
+              <a (click)="addToCart(item,1)" class="btn btn-solid mt-3" [ngClass]="{'disabled': !selectedSize[i]}">Move To Cart</a>
+            </div>
+          </div>
+        </div>
+       </div>
+       <div class="row justify-content-center" *ngIf="!emptyWishlist" [ngClass]="{'d-none': loader}">
+        <div>
+          <ul class="pagination">
+               <li (click)="setPage(wishlistItems.currentPage - 1)" [ngClass]="{disabled:wishlistItems?.currentPage === 0}" class="circle-border" matTooltip="Previous" matTooltipPosition="above">
+                  <a>
+                    <!-- Previous -->
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i> Previous
+                  </a>
+              </li>
+               <li class="pagenumber active">
+                  <a href="">1</a>
+              </li>
+              <!-- <li class="pagenumber">
+                <a href="">2</a>
+            </li> -->
+              <li (click)="setPage(wishlistItems.currentPage + 1)" [ngClass]="{disabled:wishlistItems?.currentPage === wishlistItems?.totalPage}" class="circle-border" matTooltip="Next" matTooltipPosition="above">
+                  <a>
+                    <!-- Next -->
+                    Next <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                  </a>
+              </li>
+          </ul>
+        </div>
+       </div>
+       <div>
+        
+       </div>
+      <div class="row justify-content-end wishlist-buttons mt-5  ml-0" *ngIf='continuebtns'>
+        <div class="p-0">
+          <a [routerLink]="['/collections/collection/all']" class="btn btn-solid">continue shopping</a>
+          <a [routerLink]="['/address']" class="btn btn-solid">check out</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--section  not for localstorage end-->
+<app-footer></app-footer>

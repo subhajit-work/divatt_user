@@ -1,0 +1,88 @@
+.nav-pills {
+    display:none;
+}
+
+@media(min-width:768px) {
+    .nav-pills {
+        display: flex;
+    }
+    
+    .card {
+        border: none;
+    }
+		.card-body {
+			padding: 0;
+		}
+
+    .card .card-header {
+        display:none;
+    }  
+
+    .card .collapse{
+        display:block;
+    }
+}
+
+@media(max-width:767px){
+    .tab-pane {
+        display: block !important;
+        opacity: 1;
+    }
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #87C048;
+    color: #fff !important;
+}
+.nav-pills a {
+    color: #000;
+    font-size: 20px;
+}
+.tab-header {text-align: right;}
+.profileimg img
+{
+    border-radius: 100%;
+}
+.label
+{
+    position: relative;
+}
+label.image_update_btn
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #1abc9c;
+    color: #fff;
+    padding: 3px 3px 0px 3px;
+    border-radius: 50%;
+    font-weight: 100;
+}
+.formloader
+{
+    position:  absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%,-50%);
+}
+mat-spinner.formloader
+{
+    width: 30px;
+    height: 30px;
+    
+}
+mat-spinner.formloader svg    
+{
+    width: 30px;
+    height: 30px; 
+           
+}
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #87c048 !important;
+}
+.img-rounded
+{
+    border-radius: 50%;
+    height: 100px;
+    object-fit: cover;
+}

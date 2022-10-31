@@ -1,0 +1,98 @@
+.toggle-btn {
+    text-align: right;
+}
+.toggle-btn a {
+    margin: 10px;
+    /* background: #1a9bbf; */
+    color: #000;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.toggle-btn a.active {
+    border: 2px solid #000;
+}
+.toggle-btn a:hover {
+    border: 2px solid #000;
+}
+.toggle-btn2
+{
+    width: fit-content;
+    background: rgb(204 204 204);
+    padding: 2px;
+    border-radius: 9999px;
+    transition: 0.2s ease-in-out;
+    margin-right: 20px;
+}
+.toggle-btn2 button
+{
+    width: 93px;
+    justify-content: center;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    transition: 0.2s ease-in-out;
+}
+.toggle-btn2 button mat-icon
+{
+    margin-right: 5px;
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+}
+.toggle-btn2 .active {
+    background: #000 !important; 
+    border-radius: 9999px !important; 
+    color: #fff !important;
+}
+.text-sm {
+    font-size: 12px;
+}
+.justify-content-right
+{
+    justify-content: right;
+}
+.follow_btn
+{
+    /* padding-bottom: 25px; */
+}
+.follow_img
+{
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+}
+@media screen and (max-width:426px) 
+{
+    .card4
+    {
+        width: 50%;
+        border: 1px solid #f6f5f5;
+    }
+  .col-md-12.m-auto
+  {
+    width: 100%;
+    padding: 0;
+  }
+  .card4
+  {
+    padding: 7px 14px 4px 14px;
+    height: fit-content;
+  } 
+  .card4 .follow_img
+  {
+    top: 12px;
+    right: 14px;
+    width: 16px;
+    height: 16px;
+  }
+  .toggle-btn2 button
+  {
+    padding: 4px 11px !important;
+  }
+}
+.custom-title{
+    font-weight: bold;
+    font-size: 1.5em;
+}

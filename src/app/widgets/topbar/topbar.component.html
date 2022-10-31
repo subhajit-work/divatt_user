@@ -1,0 +1,43 @@
+<div class="row" >
+    <div class="col-lg-6">
+      <div class="header-contact">
+        <ul>
+          <!-- <li>{{ 'topbar-title' | translate }}</li> -->
+          <li>Welcome to Our store Divatt</li>
+          <!-- <li><i class="fa fa-phone" aria-hidden="true"></i>{{ 'call-us' | translate }}: 123 - 456 - 7890</li> -->
+          <li><i class="fa fa-phone" aria-hidden="true"></i>call-us: 123 - 456 - 7890</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6 text-right" *ngIf= true>
+      <ul class="header-dropdown">
+        <li class="compare">
+          <!-- <a [routerLink]="'/home/compare'"><i class="fa fa-random" aria-hidden="true"></i>{{ 'compare' | translate }}</a> -->
+          <!-- <a><i class="fa fa-random" aria-hidden="true"></i>compare</a> -->
+        </li>
+        <li class="mobile-wishlist">
+          <!-- <a [routerLink]="'/home/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>{{ 'wishlist' | translate }}</a> -->
+          <a [routerLink]="'/wishlist'"><i class="fa fa-heart" aria-hidden="true"></i>wishlist</a>
+        </li>
+        <li class="onhover-dropdown mobile-account">
+          <!-- <i class="fa fa-user" aria-hidden="true"></i> {{ 'my-account' | translate }} -->
+          <i class="fa fa-user" aria-hidden="true"></i>my-account
+          <ul class="onhover-show-div">
+            <li>
+              <a [routerLink]="'/login'" data-lng="en">
+                  <!-- {{ 'login' | translate }} -->
+                  {{'login'}}
+              </a>
+              <!-- <a>login</a> -->
+            </li>
+            <li>
+              <a [routerLink]="'/home'" data-lng="es">
+                  {{'logout'}}
+              </a>
+              <!-- <a>logout</a> -->
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+</div>

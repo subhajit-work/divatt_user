@@ -1,0 +1,143 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>Checkout</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container text-center position-fixed-loader" *ngIf="loader">
+    <div class="load">
+        <mat-spinner class="loader m-auto"></mat-spinner>
+        <p class="mt-1 mb-0"><small><b>Loading..</b></small></p>
+    </div>
+    
+  </div>
+<!-- breadcrumb End -->
+<section class="section-b-space" [ngClass]="{'disabled': loader}">
+    <div class="container padding-cls">
+        <div class="checkout-page">
+            <div class="checkout-form">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="checkout-title">
+                                <h3>Delivery Address</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="address-item">
+                                        <i  [routerLink]="['/address']" class="fa fa-pencil-square-o" *ngIf="parms_action_id != 'guest'" aria-hidden="true"></i>
+                                        <p class="name">{{showAddress?.fullName}}</p>
+                                        <p class="address">
+                                            {{showAddress?.address1}},<br>{{showAddress?.address1}},<br>City : {{showAddress?.city}}, State : {{showAddress?.state}},<br>Country : {{showAddress?.country}}, Pin : {{showAddress?.postalCode}}
+                                        </p>
+                                        <p class="phone">Landmark: {{showAddress?.landmark}}</p>
+                                        <p class="phone">Mobile: {{showAddress?.mobile}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-title">
+                                <h3>Payment</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="address-item radio-container">
+                                        <div class="radio-custom-outer">
+                                            <div class="radio-custom-label"> 
+                                                <label>
+                                                  <input type="radio" id="pay_by_online" value="ONLINE" name="payment_type" [(ngModel)]="model.payment_type" (change)="onChangePaymentMode(model.payment_type)" required checked="checked"> 
+                                                  <div  class="btn btn-sık" matRipple><span>Payment by Online</span></div> 
+                                                </label>
+                                                <label class="disabled">
+                                                    <input  type="radio"  id="pay_on_cash" value="CASH" name="payment_type" [(ngModel)]="model.payment_type" (change)="onChangePaymentMode(model.payment_type)" required> 
+                                                  <div class="btn btn-sık" matRipple><span>Payment by Cash</span></div>
+                                                </label>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p><small>Payment by Cash in progress.</small></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="checkout-title">
+                                <h3>Products</h3>
+                            </div>
+                            <div class="order-box">
+                                <ul class="qty" *ngIf='cartListData.length'>
+                                    <li *ngFor="let cartItem of cartListData">
+                                        <div class="order-cart-item">
+                                            <div class="item-img">
+                                                <div class="img">
+                                                    <img *ngIf="cartItem?.images[0].name" [src]="cartItem?.images[0].name">
+                                                    <img *ngIf="cartItem?.images[0].name == null" src="assets/images/no-bg-img.jpg">
+                                                </div>
+                                            </div>
+                                            <div class="item-desc">
+                                                <p class="designerName">Designer: {{cartItem?.designerName}}</p>
+                                                <p class="itemName">{{cartItem?.productName}}</p>
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                Size : {{cartItem?.selectedSize}}
+                                                            </td>
+                                                            <td>
+                                                                Quantity : {{cartItem?.cartData?.qty}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                ₹{{cartItem?.price?.indPrice?.dealPrice * cartItem?.cartData?.qty}} <del>₹{{cartItem?.price?.indPrice?.mrp * cartItem?.cartData?.qty}}</del>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="qty" *ngIf='!cartListData.length'>
+                                    <li class="empty-checkout"> There are no products in cart </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="position-fixed cart-btn-section">
+                <div class="total_price d-flex align-items-center">
+                  <div class="price d-grid"> 
+                    <div class="w-100 font-10">
+                      <span>Total:</span><span class="float-right"> ₹{{ netAmount }}</span>
+                    </div>
+                    
+                    <!-- <p class="font-10 mb-1 text-right">GST include 12%</p> -->
+                    <p class="font-10 m-0">* EXCL SHIPPING COST</p>
+                  </div>
+                  
+                  <div class="btnBox" *ngIf='cartListData.length'>
+                    <a [ngClass]="{'disabled': !paymentType}" (click)="checkout()" class="btn btn-solid">Checkout</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</section>

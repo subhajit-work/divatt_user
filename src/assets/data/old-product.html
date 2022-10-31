@@ -1,0 +1,49 @@
+<div class="col">
+    <ngx-slick-carousel class="product-4 product-m no-arrow product-slider" #slickModal="slick-carousel" [config]="productSlideConfig">
+      <div ngxSlickItem class="product-box" *ngFor="let product of products;let i = index ">
+        <div class="img-wrapper">
+          <div class="lable-block">
+            <!-- <span class="lable3" *ngIf='product.new'>new</span>
+            <span class="lable4" *ngIf='product.sale'>on sale</span> -->
+          </div>
+          <div class="front">
+            <a [routerLink]="['/product-detail/product', product.id]">
+              <!-- <img
+                [src]="!variantImage ? product.pictures[0] : variantImage" class="img-fluid" alt=""> -->
+              </a>
+          </div>
+          <ul class="product-thumb-list">
+            <li class="grid_thumb_img" [ngClass]="{'active': selectedItem == variant.images}"
+              *ngFor="let variant of product.variants">
+              <a [routerLink]="" (click)="changeVariantImage(variant.images)">
+                <img [src]="variant.images">
+              </a>
+            </li>
+          </ul>
+          <!-- Product details -->
+          <div class="product-detail">
+            <div>
+              
+              <div class="designer">
+                <div class="name">Designer name </div>
+              </div>
+              <a [routerLink]="['/product-detail/product', product.id]">
+                <h6>{{product[i]?.productName}}</h6>
+              </a>
+              <h4 *ngIf="!productsService?.catalogMode">{{product.mrp}}
+                <del><span class="money">{{product.salePrice}}</span></del>
+              </h4>
+            </div>
+           
+          </div>
+          <a  class="action_btn actionWishlist" (click)="addToWishlist(product)" title="Add to Wishlist">
+            <img src="assets/images/divattIcons/lock.png">
+          </a>
+          <a  class="action_btn actionCompare" (click)="addToCompare(product)" title="Compare">
+            <i class="ti-reload" aria-hidden="true"></i>
+          </a>
+        </div>
+        
+      </div>
+    </ngx-slick-carousel>
+  </div>

@@ -1,0 +1,133 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="page-title">
+          <h2>Collection</h2>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <nav aria-label="breadcrumb" class="theme-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="'/home'">Home</a></li>
+            <li class="breadcrumb-item"><a >{{category}}</a></li>
+            <li class="breadcrumb-item active">{{subcategory}} collection</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb End -->
+<section class="section-b-space pt-3" style="overflow:hidden;">
+
+  <div class="collection-wrapper">
+    <div class="container-fluid fixed-width">
+      <div class="row">
+        <div class="col-md-12 pd_on_mb">
+          <div class="collection-content col">
+          <div class="page-main-content">
+            <div class="top-banner-wrapper">
+              <!-- <a href="#"><img src="../assets/images/mega-menu/2.jpg" class="img-fluid blur-up lazyload" alt=""></a> -->
+              <div class="row mb-5">
+                <div class="col-md-12">
+                  <div class="collection_title d-flex align-items-center justify-content-between">
+                    <div class=" w-fit">
+                      <img src="assets/images/sort.png" alt="" style="width:22px;height:24px;margin: 4px; padding: 1px;">
+                      <!-- <h3 class="m-0 text-black"><span>{{category}}</span> <mat-icon>arrow_forward_ios</mat-icon> <span>{{subcategory}} collection</span> </h3> -->
+                    </div>
+                    <div class="float-right">
+                      <img class="img-fluid icon-width icon-height  curser-pointer" id="menu-toggle" (click)="visiblefilter = true"
+                            src="assets/images/siger.png"
+                            style="width:22px;height:24px; padding: 1px;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+           
+
+
+          </div>
+        </div>
+        </div>
+        
+      </div>
+
+      <p-sidebar [(visible)]="visiblefilter" position="right" [modal]="false" [baseZIndex]="10000">
+  
+        <!-- Sidebar -->
+        <app-filter (productfilter)="setFilter($event)"></app-filter>
+
+        <!-- /#sidebar-wrapper -->
+        <div class="buttons filtter">
+          <a class="link curser-pointer">view all result</a>
+          <a class="link curser-pointer">clear</a>
+        </div>
+      </p-sidebar>
+
+
+<div class="row" style="display: flex !important; justify-content: center;">
+ <div class="col-md-12 offset-md-3 product_list">
+
+<!-- 
+  <ng-template let-content ngFor [ngForOf]="allproducts | paginate: config">
+
+   
+    <app-product [product]="product"></app-product>
+ 
+ </ng-template> -->
+
+
+
+
+
+ </div>
+ 
+</div>
+
+
+
+
+    </div>
+  </div>
+  <div class="container text-center" *ngIf="loader">
+    <mat-spinner class="loader m-auto"></mat-spinner>
+    <p class="mt-1 mb-0"><small><b>Loading..</b></small></p>
+  </div>
+  <div class="container-fluid collection-page fixed-width" [ngClass]="{'d-none': loader}">
+    <div class="row d-flex" *ngIf="allproducts">
+      <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6" *ngFor="let product of allproducts | paginate: config">
+        <div class="product-box">
+          <app-product [product]="product"></app-product>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<div class="row small_pd" [ngClass]="{'d-none': loader}" *ngIf="allproducts.length">
+  <div class="col-12 mt-5" style="display: flex;justify-content: center;">
+    <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+  </div>
+ 
+</div>
+<div class="row justify-content-center empty-cart-cls" *ngIf="!allproducts.length" [ngClass]="{'d-none': loader}">
+  <div class="text-center">
+    <img src="assets/images/no-product-found.png" alt="">
+    <h3>No Product Found.</h3>
+  </div>  
+</div>
+<!-- <div class="row d-flex justify-content-center">
+  <div class="col-lg-2 col-md-6" *ngFor="let product of allproducts">
+    <div class="product-box">
+      <app-product [product]="product"></app-product>
+    </div>
+    
+    
+  </div>
+</div> -->
+<a (click)="scrollToTop()" class="scroll_to_top"><mat-icon>keyboard_arrow_up</mat-icon></a>
+</section>
+<app-footer></app-footer>

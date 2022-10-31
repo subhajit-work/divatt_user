@@ -1,0 +1,1137 @@
+<!-- section start -->
+<section class="product_view body-first-child">
+  <div class="collection-wrapper ">
+    <div class="container">
+      <div class="row sidebar">
+        <div class="col-lg-12 col-sm-12">
+          <div class="container-fluid fixed-width" style="position: relative;">
+            <div class="row">
+              <div class="col-md-6 product_img_template  laptop">
+                <ng-template  class="col-12" ngFor let-item [ngForOf]="productDetail?.images">
+                  <div class="mb-3 d-inline-block" >
+                    <img class="" src={{item.name}} alt="" class="img-fluid blur-up lazyload product_img_template"/>
+                  </div>
+                </ng-template>
+                <ng-template  class="col-12" >
+                  <div class="mb-3 d-inline-block" >
+                    <img class="" src="assets/images/fashion/product/17.jpg" alt="" class="img-fluid blur-up lazyload "/>
+                    <img class="" src='assets/images/fashion/product/17.jpg' alt="" class="img-fluid blur-up lazyload "/>
+                  </div>
+                </ng-template>
+              </div>
+              <div class="col-md-6 rtl-text product_img_template laptop">
+                <div class="product-right product-detail-dialog shadow-sm pro_sticky_info p-3" data-sticky_column *ngIf="productDetail">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h2 class="lead font-weight-bold mb-0">{{productDetail?.designerName}}</h2>
+                      <p class="followers mb-0"><span class="follower mb-0 mt-2 d-flex align-items-center"><mat-icon class="brandIcon">campaign</mat-icon> {{designer?.designerProfileEntity?.boutiqueProfile?.boutiqueName}}</span></p>
+                      <div class="followers d-flex align-items-center"><span class="follower mb-0"><b>Follower :</b> {{follwerCount}}</span><span class="product ml-3"><b>Products : </b> {{productCount}}</span> 
+                        <div class="follow_btn text-right pl-3" style="height: 29px;" *ngIf="get_user_dtls">
+                          <!-- <a href=""></a> -->
+                          <img src="assets/images/follow.png" class="follow_img" style="width: 19px;" *ngIf="!designer?.follwerCount" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)">
+                          <img src="assets/images/unfollow.png" class="follow_img"style="width: 19px;" *ngIf="designer?.follwerCount" (click)="openfollowModal('unfollow',followmodal,designer?.designerProfileEntity?.designerId)">
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="rating d-grid">
+                    <div class="scale_rating">
+                      <span>3.7</span>
+                      <img src="assets/images/rating/scale.png" alt="">
+                    </div>
+                  </div> -->
+                    <img [src]="designerPic" class="designerIcon">  
+                </div>
+                    
+                  <hr/>
+                  <h1 class="lead w-80">
+                    {{productDetail?.productName}}
+                  </h1>
+                  <p class="justify-content">
+                    <span class="mr-2">
+                      <strong class="lead font-weight-bold">
+                        {{productDetail?.price?.indPrice?.dealPrice | currency:'INR'}}
+                      </strong>
+                    </span>
+                    <span>
+                      <small>
+                        <del>{{productDetail?.price?.indPrice?.mrp | currency:'INR'}}</del>
+                      </small>
+                    </span>
+                    <span *ngIf="productDetail?.price?.indPrice?.mrp > productDetail?.price?.indPrice?.dealPrice">
+                      <small class="text-danger"  *ngIf="productDetail?.price?.indPrice?.discountType == 'Percentage'">
+                        ({{productDetail?.price?.indPrice?.discountValue}} % off)
+                      </small>
+                      <small class="text-danger" *ngIf="productDetail?.price?.indPrice?.discountType == 'Flat'">
+                        (Flat {{productDetail?.price?.indPrice?.discountValue}} off)
+                      </small>
+                    </span>
+                  </p>     
+                  <mat-tab-group mat-align-tabs="center" (selectedTabChange)="0">
+                    <mat-tab label="Select Size">
+                     <div class="select-size">
+                      <div class="row p-1">
+                        <div class="col">
+                          <h6 class="lead float-start mt-3">
+                            Select Size
+                            
+                            <a href="" class="small mx-3 float-right" data-toggle="modal" data-target="#sizemodal" style="color: #44bd9d">size
+                              chart</a>
+                          </h6>
+                          
+                        </div>
+
+                      </div>
+                     
+                      <div class="p-1 size-box d-flex">
+                        <ul class="mb-0">
+                          <li *ngFor="let productSize of productDetail?.standeredSOH"> <button type="button" class="btn btn-dark btn-circle btn-sm" [ngClass]="{'active': selectedSize == productSize.sizeType }" (click)="changeSizeVariant(productSize?.sizeType)"><span class="lead">{{productSize?.sizeType}}</span></button></li>
+                        </ul>
+                        <button class="custom-button" mat-raised-button (click)="custom_modal(customchart)">CUSTOM</button>
+                      </div>
+                     </div>
+                     <!-- <div class="select-size">
+                      <div class="row p-1">
+                        <div class="col">
+                          <h6 class="lead float-start mt-3">
+                            Select Colour
+                          </h6>
+                          
+                        </div>
+
+                      </div>
+                     
+                      <div class="p-1 size-box">
+                        <ul class="mb-0">
+                          <li *ngFor="let productColor of productDetail?.images" [ngClass]="{'d-none': !productColor?.colour }"> <button type="button" class="btn  btn-circle color-icon" [ngClass]="{'active': selectedColor == productColor.colour }"  [style.background-color]="productColor?.colour" (click)="changeColorVariant(productColor?.colour)"></button></li>
+                        </ul>
+                      </div>
+                     </div> -->
+                    </mat-tab>
+                    <mat-tab label="Customize">
+
+
+                     <div class="p-1">
+                      <mat-accordion class="example-headers-align" multi>
+                        <!-- #enddocregion multi -->
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                             <p class="lead" style="font-size: 15px;">Upper Body</p>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                             
+                             
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                      
+                          
+                      
+                        </mat-expansion-panel>
+                        <!-- #docregion disabled -->
+                        <mat-expansion-panel>
+                          <!-- #enddocregion disabled -->
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <p class="lead" style="font-size: 15px;">Lower Body</p>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                              
+                            
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                      
+                         
+                        </mat-expansion-panel>
+                      
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <p class="lead" style="font-size: 15px;">Questionaries</p>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                              Ask us
+                              
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                      
+                         
+                        
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                     
+                     </div> 
+
+                     
+
+                    </mat-tab>
+
+                  </mat-tab-group> 
+                  <div class="product-buttons p-1">
+                    <button type="button" class="btn btn-solid mr-2 mb-2" [ngClass]="{'disabled': !selectedSize}" *ngIf="!productDetail.cartData" (click)="addToCart(productDetail,1)"><span class="lead fs-25" style="font-size: 15px;" >Add To Cart</span></button>
+                    <button type="button" class="btn btn-solid mr-2 mb-2" *ngIf="productDetail.cartData" [routerLink]="['/cart']"><span class="lead fs-25" style="font-size: 15px;">Go To Cart</span></button>
+                    <button type="button" class="btn btn-solid mb-2" (click)="addToWishlist(productDetail)"><span class="lead fs-25" style="font-size: 15px;">Wishlist</span></button>
+                  </div>
+                  <div class="shopping_feature">
+                    <a>
+                      <img src="assets/images/icon/free_shopping.png" alt="">
+                      <span>Free shopping</span>
+                    </a>
+                    <a>
+                      <img src="assets/images/icon/cash-on-delivery.png" alt="">
+                      <span>Cash on delivery</span>
+                    </a>
+                    <a>
+                      <img src="assets/images/icon/return-box.png" alt="">
+                      <span class="mr-0">Easy return</span>
+                    </a>
+                  </div>
+                  <div class="shopping_feature">
+                    <a>
+                      <img src="assets/images/icon/free_india.png" alt="">
+                      <span>Free shopping only for india.</span>
+                    </a>
+                    <a>
+                      <img src="assets/images/icon/no_return-box.png" alt="">
+                      <span>Custom made orders are not returnable.</span>
+                    </a>
+                  </div>
+                  <p class="note"><b>Note : </b>Shipping in 20days.</p>
+
+                  <p class="specifications-title mt-3">Specifications</p>
+                  <h6 class="text-uppercase lead mt-2">product Descption</h6>
+                  <div class="border-product">
+                   <p>
+                    {{productDetail?.productDescription}}
+                    </p>
+                  </div>
+                  <h6 class="text-uppercase lead">fit</h6>
+                  <div class="border-product mt-2">
+                    <p>
+                      {{productDetail?.specifications?.fittingInformation}}
+                    </p>
+                    <!-- <p>
+                      Unde omnis iste natus error si
+                    </p>
+                    <p>
+                      Perspiciatis, unde omnis iste natus error si
+                    </p> -->
+                  </div>
+                  <h6 class="text-uppercase lead">Composition</h6>
+                  <div class="border-product mt-2">
+                    <p class="mb-0">Cotton {{productDetail?.specifications?.composition?.cotton}}%</p>
+                    <p>Polystar {{productDetail?.specifications?.composition?.polystar}}%</p>
+                  </div>
+                  <h6 class="text-uppercase lead" *ngIf="productDetail?.specifications?.style">Occassion</h6>
+                  <div class="border-product mt-2" *ngIf="productDetail?.specifications?.style"> 
+                    <p>{{productDetail?.specifications?.style}}</p>
+                  </div>
+                  
+                  <h6 class="text-uppercase lead">Washing Instructions</h6>
+                  <div class="border-product mt-2">
+                    <p>{{productDetail?.specifications?.washingInformation}}</p>
+                  </div>
+                  <div class="product-right">
+                    <div class="border-product border-0 d-flex align-items-center pb-0">
+                      <h6 class="product-title w-fit">share it : </h6>
+                      <div class="product-icon mt-3 w-fit ml-2">
+                        <ul class="product-social">
+                          <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-rss"></i></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 product_img_slider mobile">
+                <ngx-slick-carousel class="no-arrow " #slickModal="slick-carousel" [config]="slideRightConfig">
+                  <!-- <div ngxSlickItem  *ngFor="let product of productDetail">
+                    <img class="" src="assets/images/fashion/product/10.jpg" alt="" class="img-fluid blur-up lazyload"/>
+                  </div> -->
+                  <div ngxSlickItem *ngFor="let images of ImageForSlider">
+                    <img class="" [src]="images" alt="" class="img-fluid blur-up lazyload"/>
+                  </div>
+                </ngx-slick-carousel>
+              </div>
+              <div class="col-md-6 rtl-text product_img_template mobile">
+                <div class="product-right product-detail-dialog shadow-sm pro_sticky_info p-3">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h2 class="lead font-weight-bold mb-1">{{productDetail?.designerName}}</h2>
+                      <p class="followers mb-0"><span class="follower mb-0 mt-2 d-flex align-items-center"><mat-icon class="brandIcon">campaign</mat-icon> {{designer?.designerProfileEntity?.boutiqueProfile?.boutiqueName}}</span></p>
+                      
+                    </div>
+                    <img [src]="designerPic" class="designerIcon">  
+                </div>
+                <div class="followers d-flex align-items-center"><span class="follower mb-0"><b>Follower :</b> {{follwerCount}}</span><span class="product ml-3"><b>Products : </b> {{productCount}}</span> 
+                  <div class="follow_btn text-right pl-3" style="height: 29px;" *ngIf="get_user_dtls">
+                    <!-- <a href=""></a> -->
+                    <img src="assets/images/follow.png" class="follow_img curser-pointer" style="width: 19px;" *ngIf="!designer?.isFollowing" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)">
+                    <img src="assets/images/unfollow.png" class="follow_img curser-pointer"style="width: 19px;" *ngIf="designer?.isFollowing" (click)="openfollowModal('unfollow',followmodal,designer?.designerProfileEntity?.designerId)">
+                    
+                  </div>
+                </div>      
+                  
+                  <hr/>
+                  <h1 class="lead w-80">
+                        {{productDetail?.productName}}
+                      </h1>
+                  <p class="justify-content">
+                    <span class="mr-2">
+                      <strong class="lead font-weight-bold">
+                        {{productDetail?.price?.indPrice?.dealPrice | currency:'INR'}}
+                      </strong>
+                    </span>
+                    <span  *ngIf="productDetail?.price?.indPrice?.mrp > productDetail?.price?.indPrice?.dealPrice">
+                      <small>
+                        <del>{{productDetail?.price?.indPrice?.mrp | currency:'INR'}}</del>
+                      </small>
+                    </span>
+                    <span *ngIf="productDetail?.price?.indPrice?.mrp > productDetail?.price?.indPrice?.dealPrice">
+                      <small class="text-danger"  *ngIf="productDetail?.price?.indPrice?.discountType == 'Percentage'">
+                        ({{productDetail?.price?.indPrice?.discountValue}} % off)
+                      </small>
+                      <small class="text-danger" *ngIf="productDetail?.price?.indPrice?.discountType == 'Flat'">
+                        (Flat {{productDetail?.price?.indPrice?.discountValue}} off)
+                      </small>
+                    </span>
+                  </p>   
+                  <mat-tab-group mat-align-tabs="center" (selectedTabChange)="0">
+                    <mat-tab label="Select Size">
+                     <div class="select-size">
+                      <div class="row p-1">
+                        <div class="col">
+                          <h6 class="lead float-start mt-3">
+                            Select Size
+                            
+                            <a href="" class="small mx-3 float-right" data-toggle="modal" data-target="#sizemodal" style="color: #44bd9d">size
+                              chart</a>
+                          </h6>
+                          
+                        </div>
+
+                      </div>
+                     
+                      <div class="p-1 size-box d-flex">
+                        <ul class="mb-0">
+                          <li *ngFor="let productSize of productDetail?.standeredSOH"> <button type="button" class="btn btn-dark btn-circle btn-sm"[ngClass]="{'active': selectedSize == productSize.sizeType }" (click)="changeSizeVariant(productSize?.sizeType)"><span class="lead">{{productSize?.sizeType}}</span></button></li>
+                        </ul>
+                        <button class="custom-button" mat-raised-button (click)="custom_modal(customchart)">CUSTOM</button>
+                      </div>
+                     </div>
+                     <!-- <div class="select-size">
+                      <div class="row p-1">
+                        <div class="col">
+                          <h6 class="lead float-start mt-3">
+                            Select Colour
+                          </h6>
+                          
+                        </div>
+
+                      </div>
+                     
+                      <div class="p-1 size-box">
+                        <ul class="mb-0">
+                          <li *ngFor="let productColor of productDetail?.images" [ngClass]="{'d-none': !productColor?.colour }"> <button type="button" class="btn  btn-circle color-icon" [ngClass]="{'active': selectedColor == productColor?.colour}"  [style.background-color]="productColor?.colour" (click)="changeColorVariant(productColor?.colour)"></button></li>
+                        </ul>
+                      </div>
+                     </div> -->
+                    </mat-tab>
+                    <mat-tab label="Customize">
+
+
+                     <div class="p-1">
+                      <mat-accordion class="example-headers-align" multi>
+                        <!-- #enddocregion multi -->
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                             <p class="lead" style="font-size: 15px;">Upper Body</p>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                             
+                             
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                      
+                          
+                      
+                        </mat-expansion-panel>
+                        <!-- #docregion disabled -->
+                        <mat-expansion-panel>
+                          <!-- #enddocregion disabled -->
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <p class="lead" style="font-size: 15px;">Lower Body</p>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                              
+                            
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                      
+                         
+                        </mat-expansion-panel>
+                      
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <p class="lead" style="font-size: 15px;">Questionaries</p>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                              Ask us
+                              
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                      
+                         
+                        
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                     
+                     </div> 
+
+                     
+
+                    </mat-tab>
+
+                  </mat-tab-group>
+                  <div class="product-buttons p-1">
+                    <button type="button" class="btn btn-solid mr-2 mb-1 " [ngClass]="{'disabled': !selectedSize}" (click)="addToCart(productDetail,1)"><span class="lead fs-25" style="font-size: 15px;">Add To Cart</span></button>
+                    <button type="button" class="btn btn-solid more-width" (click)="addToWishlist(productDetail)"><span class="lead fs-25" style="font-size: 15px;">Wishlist</span></button>
+                  </div>
+                  <div class="shopping_feature">
+                    <a>
+                      <img src="assets/images/icon/free_india.png" alt="">
+                      <span>Free shopping</span>
+                    </a>
+                    <a>
+                      <img src="assets/images/icon/cash-on-delivery.png" alt="">
+                      <span>Cash on delivery</span>
+                    </a>
+                    <a>
+                      <img src="assets/images/icon/return-box.png" alt="">
+                      <span class="mr-0">Easy return</span>
+                    </a>
+                  </div>
+                  <div class="shopping_feature">
+                    <a>
+                      <img src="assets/images/icon/free_india.png" alt="">
+                      <span>Free shopping only for india.</span>
+                    </a>
+                    <a>
+                      <img src="assets/images/icon/no_return-box.png" alt="">
+                      <span>Custom made orders are not returnable.</span>
+                    </a>
+                  </div>
+                  <p class="note"><b>Note : </b>Shipping in 20days.</p>
+                  <p class="specifications-title mt-3">Specifications</p>
+                  <h6 class="text-uppercase lead mt-2">product Descption</h6>
+                  <div class="border-product">
+                   <p>
+                    {{productDetail?.productDescription}}
+                    </p>
+                  </div>
+                  <h6 class="text-uppercase lead">fit</h6>
+                  <div class="border-product mt-2">
+                    <p>
+                      {{productDetail?.specifications?.fittingInformation}}
+                    </p>
+                    <!-- <p>
+                      Unde omnis iste natus error si
+                    </p>
+                    <p>
+                      Perspiciatis, unde omnis iste natus error si
+                    </p> -->
+                  </div>
+                  <h6 class="text-uppercase lead">Composition</h6>
+                  <div class="border-product mt-2">
+                    <p class="mb-0">Cotton {{productDetail?.specifications?.composition?.cotton}}%</p>
+                    <p>Polystar {{productDetail?.specifications?.composition?.polystar}}%</p>
+                  </div>
+                  <h6 class="text-uppercase lead" *ngIf="productDetail?.specifications?.style">Occassion</h6>
+                  <div class="border-product mt-2" *ngIf="productDetail?.specifications?.style"> 
+                    <p>{{productDetail?.specifications?.style}}</p>
+                  </div>
+                  <h6 class="text-uppercase lead">Washing Instructions</h6>
+                  <div class="border-product mt-2">
+                    <p>{{productDetail?.specifications?.washingInformation}}</p>
+                  </div>
+                  <!-- <div class="product-right share_bar">
+                    <div class="border-product border-0 d-flex align-items-center pb-0">
+                      <h6 class="product-title w-fit">share it : </h6>
+                      <div class="product-icon mt-3 w-fit ml-2">
+                        <ul class="product-social">
+                          <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                          </li>
+                          <li>
+                            <a href="#"><i class="fa fa-rss"></i></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Section ends -->
+
+<!-- product-tab starts -->
+<section class=" m-0 designer p-0" >
+  <!-- <div class="container pt-2 mt-3" >
+    <div class="row">
+      <div class="col-md-12">
+        <p class="specifications-title  text-center mt-3">Description</p>
+      </div>
+      <div class="col-md-12">
+        <div class="pt-0 pl-1 pr-1 pb-1">
+          <div class="single-product-tables mt-0 justify-content">
+            <p class="info_text">
+             {{productDetail.productDescription}}
+            </p>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+  </div> -->
+  <!-- <div class="container" style="background-color: rgb(246 246 246)" *ngIf="designer">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="row" >
+          <div class="col-md-12">
+            <div class="profile_card p-3">
+              <div class="row">
+                <div class="col-md-2"> 
+                  <div class="imgbox">
+                    <img class="rounded mt-5" [routerLink]="['/designer/', productDetail.designerId]" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic!= null ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'"/>
+                    <p class="follow_btn text-center" *ngIf="get_user_dtls">
+                      <a class="btn btn-transparent" *ngIf="!isFollowing" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)"> <i class="ti-plus"></i> Follow</a>
+                      <a class="btn btn-solid" *ngIf="isFollowing" (click)="openfollowModal('unfollow','',designer?.designerProfileEntity?.designerId)"> Following</a>
+                    </p>
+                    <p class="follow_btn text-center" *ngIf="!get_user_dtls">Login ,to follow designer</p>
+                  </div>
+                </div>
+                <div class="col-md-10 p-3 py-5">
+                  <div class="descption">
+                    <div class="name d-flex align-items-center justify-content-between mb-2"> 
+                      <div class="d-flex">
+                        <span class="designer" [routerLink]="['/designer/', productDetail.designerId]">{{designer?.designerProfileEntity?.designerName}}</span> 
+                        <div class="rating text-center ml-4">
+                          <div class="scale_rating m-auto">
+                            <span>3.7</span>
+                            <img src="assets/images/rating/scale.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                       <a [routerLink]="['/designer/', productDetail.designerId]" class="btn btn-solid float-right">View Profile</a>
+                    </div>
+                    <p class="followers"> <span class="follower"><b>Follower :</b> {{designer?.follwerCount}}</span> <span class="product"><b>Products : </b> {{designer?.productCount}}</span></p>
+                    <p class="info_text font-family lead" >
+                      {{designer?.designerProfileEntity?.socialProfile?.description}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="d-flex main">
+                  <div class="imgbox">
+                    <a [routerLink]="['/designer/', designer.designerProfileEntity.designerId]">
+                      <img class="rounded" [src]="designer?.designerProfileEntity?.designerProfile?.profilePic!= null ? designer?.designerProfileEntity?.designerProfile?.profilePic : 'assets/images/noimage.jpg'"/>
+                    </a>
+                  </div>
+                  <div class="descption">
+                    <div class="designername">
+                      <div class="name d-flex align-items-center justify-content-between"> 
+                        <div >
+                          <div class="d-flex mb-2">
+                            <a [routerLink]="['/designer/', designer.designerProfileEntity.designerId]">
+                              <span class="text-uppercase text-dark">{{designer?.designerProfileEntity?.designerName}}</span> 
+                            </a>
+                            <div class="rating text-center ml-2">
+                              <div class="scale_rating ml-4">
+                                <span>3.7</span>
+                                <img src="assets/images/rating/scale.png" alt="">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <p class="followers"> <span class="follower"><b>Follower :</b> {{designer?.follwerCount}}</span> <span class="product"><b>Products : </b> {{designer?.productCount}}</span></p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex main">
+                  <div class="btns">
+                    <p class="follow_btn text-center" *ngIf="get_user_dtls">
+                      <a class="btn btn-transparent" *ngIf="!isFollowing" (click)="openfollowModal('follow',followmodal,designer?.designerProfileEntity?.designerId)"> <i class="ti-plus"></i> Follow</a>
+                      <a class="btn btn-solid" *ngIf="isFollowing" (click)="openfollowModal('unfollow','',designer?.designerProfileEntity?.designerId)"> Following</a>
+                    </p>
+                    <p class="follow_btn text-center" *ngIf="!get_user_dtls">Login ,to follow designer</p>
+                  </div>
+                  <div class="descption">
+                    <p class="info_text font-family lead" >
+                      {{designer?.designerProfileEntity?.socialProfile?.description}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div> -->
+</section>
+<!-- product-tab ends -->
+
+<!-- product section start -->
+<div class="title1  section-t-space mt-5">
+  <h2 class="title-inner1">Related Products</h2>
+</div>
+<div class="container-fluid fixed-width two-on-small nospace-mobile">
+  <div class="row">
+    <div class="col">
+      <ngx-slick-carousel class="product-4 product-m no-arrow product-slider" #slickModal="slick-carousel" [config]="productSlideConfig">
+        <div ngxSlickItem class="product-box" *ngFor="let product of products">
+          <app-product [product]="product"></app-product>
+        </div>
+      </ngx-slick-carousel>
+      </div>
+  </div>
+</div>
+<!-- product section end -->
+<!-- <section class="review mb-3"> -->
+  <!-- <div class="container"> -->
+    <!-- <p class="specifications-title mt-3 text-center">Customer Reviews</p> -->
+    <!-- <div class="rating text-center d-flex w-fit m-auto">
+      <div class="scale_rating m-auto">
+        <span>3.7</span>
+        <img src="assets/images/rating/scale.png" alt="">
+      </div>
+     
+      <span class="review">&nbsp;&nbsp;2 reviews</span>
+    </div> -->
+    
+    <!-- <p class="text-center mt-3"><a  (click)="openModal(reviewmodal)" class="btn btn-solid">Write a Review</a></p> -->
+   
+    <!-- <div class="row">
+      <ngx-slick-carousel class="carousel review_card_slider w-100 product-4 product-m no-arrow product-slider" #slickModal="slick-carousel" [config]="reviewslidersconfig">
+        <div ngxSlickItem class="slide">
+          <div class="review_card" >
+            <p class="name">
+              Chandan Chakraborty
+            </p>
+            <p class="rating mt-2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+              <i class="fa fa-star-o"></i>
+              <span class="float-right">16 Mar 2022</span>
+            </p>
+            <div class="descption">
+              Really nice quality my sister loves it but if you want it oversized deffo go up a few sizes
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="slide">
+          <div class="review_card" >
+            <p class="name">
+              Chandan Chakraborty
+            </p>
+            <p class="rating mt-2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+              <i class="fa fa-star-o"></i>
+              <span class="float-right">16 Mar 2022</span>
+            </p>
+            <div class="descption">
+              Really nice quality my sister loves it but if you want it oversized deffo go up a few sizes
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="slide">
+          <div class="review_card" >
+            <p class="name">
+              Chandan Chakraborty
+            </p>
+            <p class="rating mt-2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+              <i class="fa fa-star-o"></i>
+              <span class="float-right">16 Mar 2022</span>
+            </p>
+            <div class="descption">
+              Really nice quality my sister loves it but if you want it oversized deffo go up a few sizes
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="slide">
+          <div class="review_card" >
+            <p class="name">
+              Chandan Chakraborty
+            </p>
+            <p class="rating mt-2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+              <i class="fa fa-star-o"></i>
+              <span class="float-right">16 Mar 2022</span>
+            </p>
+            <div class="descption">
+              Really nice quality my sister loves it but if you want it oversized deffo go up a few sizes
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="slide">
+          <div class="review_card" >
+            <p class="name">
+              Chandan Chakraborty
+            </p>
+            <p class="rating mt-2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+              <i class="fa fa-star-o"></i>
+              <span class="float-right">16 Mar 2022</span>
+            </p>
+            <div class="descption">
+              Really nice quality my sister loves it but if you want it oversized deffo go up a few sizes
+            </div>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div> -->
+  <!-- </div> -->
+<!-- </section> -->
+
+<!-- size chert modal -->
+<div class="modal fade" id="sizemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Sheer Straight Kurta
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <img src="../assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyload" /> -->
+        <img src="//cdn.shopify.com/s/files/1/1825/4753/files/size-chart-compressor_1024x1024_377509c7-c485-471e-999e-e8c755ce33c9_1024x1024.jpg?v=1606291437" class="img-fluid" alt="Size Chart">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- size chert modal /-->
+<!-- rating modal -->
+<ng-template #reviewmodal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+      Write Review
+    </h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form action="">
+    <div class="modal-body">
+      <div class="order-item d-flex pt-3 pb-3 mb-2">
+        <div class="imgbox">
+            <img src="assets/images/fashion/product/2.jpg" alt="">
+        </div>
+        <div class="descption pl-3">
+            <p class="product-name font-weight-bold mb-1 text-dark">
+                {{productDetail?.productName}}
+            </p>
+            <p class="rating mt-2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+              <i class="fa fa-star-o"></i>
+            </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Leave a comment</mat-label>
+              <textarea matInput rows="6" placeholder="Please write product review here..."></textarea>
+            </mat-form-field>
+          </div>
+          <!-- <textarea rows="6" value="" placeholder="Please write product review here" class="w-100 clearfix form-control"></textarea> -->
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="uplodewrapper p-3 w-100">
+          <p class="text-center">Upload Photo</p>
+          <input type='file' id="fileInput" class="opacity-0 w-0" (change)="onSelectFile($event)"
+          multiple accept="image/*"  />
+          <div class="row">
+            <div class="col-2">
+              <label for="fileInput" class="w-fit  m-0">
+                <img  class="uplodeImg" src="assets/images/uplodebtn.png"/>
+              </label> 
+            </div>
+            
+            <div class="col-2 productAddfromImages" *ngFor='let url of imageurls; let i = index'>
+              <img class="img-fluid uplodeImg2" [src]="url.base64String">
+              <a (click)="removeImage(i)" class="btn btn-rounded-mini">X</a>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      <p class="terms font-weight-mediam text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. with <a href="" class="link">Terms</a></p>
+    </div>
+    <div class="modal-footer justify-content-center">
+      <a href="" class="btn btn-solid">SUBMIT</a>
+    </div>
+    </form>
+</ng-template>
+<!-- rating modal /-->
+<!-- follow  modal -->
+<ng-template #followmodal let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">
+        Follow the Designer
+      </h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+      </button>
+  </div>  
+  <div class="modal-body">
+      <!-- <img src="../assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyload" /> -->
+      <form class="theme-form" #followDesigner="ngForm" (ngSubmit)="onSubmitFollowform(followDesigner)" (keyup.enter)="onSubmitFollowform(updateUser)" novalidate>
+      <!-- Hidden data -->
+      <input type="hidden" name="designerId" [(ngModel)]="model.designerId">
+      <input type="hidden" name="userId" [(ngModel)]="model.userId">
+      <input type="hidden" name="username" [(ngModel)]="model.username">
+      <input type="hidden" name="isFollowing" [(ngModel)]="model.isFollowing">
+      <div class="form-group mb-0">
+          <mat-form-field appearance="fill">
+          <mat-label>Comment</mat-label>
+          <input matInput type="text" name="comment" [(ngModel)]="model.comment" required>
+          </mat-form-field>
+      </div>
+      <!-- <div class="form-group">
+        <P>Give Rating</P>
+        <ul class="list-inline rating-list" 
+          *ngFor="let star of stars" style="display: inline-block" >
+            <li (click)="countStar(star)"
+                [ngClass]="{'selected': (star <= selectedValue)}">
+              <i class="fa fa-star"></i>
+            </li> 
+      </ul>
+      </div> -->
+      <!-- <input type="hidden" name="raiting" [(ngModel)]="model.raiting" required> -->
+      <!-- <p *ngIf="errorMsg" class="errorMsg">{{errorMsg}}</p> -->
+      <button class="btn btn-solid" type="submit" [ngClass]="{'loadingEnable':isLoading}">
+          <div class="spinner-border text-muted"></div>
+          Follow 
+      </button>
+      </form>
+  </div>
+</ng-template>
+<!--follow modal /-->
+<!-- Standard Measurement Charts Modal Start -->
+<ng-template #customchart let-modal>
+  <div class="customchart_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Standard Measurement Charts</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <form>
+      <div class="modal-body">
+        <h4>WOMEN</h4>
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Neck</mat-label>
+                  <input type="text" matInput name="neck" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Crotch Length</mat-label>
+                  <input type="text" matInput name="crotch_length" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Shoulder</mat-label>
+                  <input type="text" matInput name="shoulder" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Waist</mat-label>
+                  <input type="text" matInput name="waist" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Bust</mat-label>
+                  <input type="text" matInput name="Bust" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Hip</mat-label>
+                  <input type="text" matInput name="hip" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Rib cage (under bust)</mat-label>
+                  <input type="text" matInput name="rib_cage" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Top hip (low waist)</mat-label>
+                  <input type="text" matInput name="top_hip" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Side neck point to bust apex (front neck depth)</mat-label>
+                  <input type="text" matInput name="side_neck" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Waist to hip</mat-label>
+                  <input type="text" matInput name="waist_to_hip" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Back side neck point to waist (back neck depth)</mat-label>
+                  <input type="text" matInput name="back_side" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Front side neck point to waist (kurta length along with waist to knee)</mat-label>
+                  <input type="text" matInput name="front_side" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Back width</mat-label>
+                  <input type="text" matInput name="back_width" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Waist to knee</mat-label>
+                  <input type="text" matInput name="waist_to_knee" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Armscye depth</mat-label>
+                  <input type="text" matInput name="armscye_depth" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Knee to ankle(may be required for ankle length)</mat-label>
+                  <input type="text" matInput name="knee_to_ankle" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Armhole</mat-label>
+                  <input type="text" matInput name="armhole" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Thigh</mat-label>
+                  <input type="text" matInput name="thigh" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Top arm(bicep)</mat-label>
+                  <input type="text" matInput name="top_arm" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Knee</mat-label>
+                  <input type="text" matInput name="knee" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Elbow</mat-label>
+                  <input type="text" matInput name="elbow" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Calf circumference</mat-label>
+                  <input type="text" matInput name="calf_circumference" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Wrist</mat-label>
+                  <input type="text" matInput name="wrist" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>High ankle</mat-label>
+                  <input type="text" matInput name="high_ankle" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Sleeve length</mat-label>
+                  <input type="text" matInput name="sleeve_length" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Ankle</mat-label>
+                  <input type="text" matInput name="ankle" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Crotch depth</mat-label>
+                  <input type="text" matInput name="crotch_depth" >
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Waist to floor (bottom length)</mat-label>
+                  <input type="text" matInput name="waist_to_floor" >
+                </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark submit-btn" mat-raised-button (click)="onSubmitchart()">Submit</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!-- Standard Measurement Charts Modal Start -->
+
+<!-- tap to top start -->
+<div class="tap-top">
+  <div><i class="fa fa-angle-double-up"></i></div>
+</div>
+<app-footer></app-footer>
+<!-- tap to top end -->
+<script type="text/javascript" src="../assets/js/sticky-kit.js"></script>

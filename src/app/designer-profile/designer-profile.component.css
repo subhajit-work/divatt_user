@@ -1,0 +1,23 @@
+.profile-card-inf {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-top: 58px;
+}
+.profile-card-inf__item {
+  padding: 10px 35px;
+  min-width: 150px;
+}
+.my-pagination .ngx-pagination .current {
+  background: rgb(46, 46, 46) !important;
+}
+.profile-card-inf__title {
+  font-weight: 700;
+  font-size: 27px;
+  color: #324e63;
+}
+.profile-card-inf__txt {
+  font-weight: 500;
+  /* margin-top: 7px;? */
+}
